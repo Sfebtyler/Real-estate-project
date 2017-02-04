@@ -1,0 +1,31 @@
+<div class="maindiv" ng-init="MnCtrl.getHomesList()">
+
+    <div class="home__premium_homes">
+        <div class="home__houselisting" ng-repeat="home in MnCtrl.homeslist.results track by $index">
+            <div ng-click="MnCtrl.detailhouseid=home.id; MnCtrl.opendetailspage=true">
+                <div class="home__imageholder">
+                    <img class="home__houseimage" ng-src={{home.image}}></img>
+                    <img class="home__redline" ng-src="redline.png" ng-if=home.sold></img>
+                </div>
+                <div class="home__housetitle">{{home.title}}</div>
+                <div class="home__housestreet">{{home.street}}</div>
+                <div class="home__housecity">{{home.city}}, {{home.state}}</div>
+                <div class="home__housedescription">{{home.description}}</div>
+                <div class="home__houseprice" ng-if='!home.sold'>${{home.price}}</div>
+                <div class="home__housesold" ng-if='home.sold'>Sold</div>
+            </div>
+            <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && !home.is_favorite"
+                ng-click="MnCtrl.favorite(home.id, MnCtrl.current_user.id); home.is_favorite=true">
+                favorite_border
+            </i>
+            <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && home.is_favorite"
+                ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user); home.is_favorite=false">
+                favorite
+            </i>
+        </div>
+    </div>
+
+    <div class="home__nohomemessagediv" ng-if="!MnCtrl.homeslist">
+        <p class="home__nohomemessage">No Homes</p>
+    </div>
+</div>

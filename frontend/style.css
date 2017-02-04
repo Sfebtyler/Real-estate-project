@@ -1,0 +1,467 @@
+html {
+    position: relative;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.eot"); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff2") format('woff2'),
+       url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff") format('woff'),
+       url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ttf") format('truetype');
+}
+
+.favorite_unfavoriteicons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: #F85441;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.favorite_unfavoriteicons::selection {
+  background: none; /* WebKit/Blink Browsers */
+}
+
+.page__searchicon::selection {
+  background: none; /* WebKit/Blink Browsers */
+}
+
+:focus {
+  outline: none;
+  border: 0;
+}
+
+.page__searchicon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: white;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.page__searchcompleteicon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    align-self: flex-end;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: black;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.page__searchpage {
+    display: inline-block;;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0,0,0,.4);
+}
+.page__searchWrapper {
+    z-index: 9999;
+    position: fixed;
+    top: 0; bottom: 0;
+    right: 0; left: 0;
+    background: rgba(0,0,0,.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.page__searchWrapper label { margin: 0; }
+.page__searchWrapper input { border: none; border-bottom: 1px solid gray!important; }
+.page__searchWrapper input:focus { border-color:black!important; }
+
+
+.page__background {
+    position: static;
+    /*background-image: url("background.jpeg");*/
+    background-size: 100% 100%;;
+    background-attachment: fixed;
+}
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 64px;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    background: #3F51B5;
+}
+
+.header__span {
+    align-self: center;
+}
+
+.logo {
+    height: 35px;
+    width: 80px;
+    align-self: center;
+}
+
+.page__mainbanner {
+    position: relative;
+    width: 100%;
+    height: 300;
+}
+
+.page__menubuttons {
+    width: 200px;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.page__menubuttons:hover {
+    background: #5C6BC0;
+}
+
+.page__usergreeting {
+    word-wrap: normal;
+    color: white;
+    z-index: 1000;
+}
+
+.page__login {
+    color: #FFFFFF;
+    background-color: #303F9F;
+    text-indent: 5px;
+    padding-top: 5px;
+    padding-bottom: 10px;
+    right: 0px;
+    width: 310px;
+    border: solid #BDBDBD 1px;
+    z-index: 1;
+}
+
+.login__wrapper {
+    z-index: 9999;
+    position: fixed;
+    top: 0; bottom: 0;
+    right: 0; left: 0;
+    background: rgba(0,0,0,.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page__searchtext {
+    color: white;
+}
+
+.page__addtofavorites {
+    background:url(./icons/ic_favorite_border_large.png) no-repeat;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
+}
+
+.page__unfavorite {
+    background:url(./icons/ic_favorite_black_large.png) no-repeat;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
+}
+
+.maindiv {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 100%;
+    padding-top: 62px;
+    background-color: #E8EAF6;
+    padding-bottom: 100px;
+}
+
+.home__premium_homes {
+    overflow: auto;
+    position:relative;
+    margin-left: 15px;
+    top: 80px;
+    display: flex;
+    display:-webkit-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.home__premium_homes > div {
+    /*background-color: rgba(204, 204, 255, 0.50);*/
+}
+
+.home__houselisting {
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.50);
+    border-radius: 2%;
+    -webkit-box-shadow: 2px 3px 5px 3px rgba(0,0,0,0.25);
+    -moz-box-shadow: 2px 3px 5px 3px rgba(0,0,0,0.25);
+    box-shadow: 2px 3px 5px 3px rgba(0,0,0,0.25);
+}
+
+.home__houseref {
+    padding-bottom: 15px;
+    width: 100%;
+}
+.home__housestreet {
+    width: 100%;
+}
+.home__housecity {
+    width: 100%;
+}
+.home__housetitle {
+    width: 100%;
+}
+
+.home__houseimage {
+    position:relative;
+    height: 200px;
+    width: 217px;
+    bottom: 0px;
+}
+
+.home__housesold {
+    color: red;
+    font-weight: 800;
+    font-size: 300%;
+}
+
+.home__houseprice {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    color: green;
+    font-weight: 200;
+    font-size: 200%;
+    width: 100%;
+}
+.home__favoriteIcon {
+    margin-left: auto;
+
+}
+
+.home__nohomemessagediv {
+    position: relative;
+    height: 100px;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.home__nohomemessage {
+    position: relative;
+    left: 100px;
+}
+
+.home__redline {
+    position: absolute;
+    bottom: 10px;
+    left: 5%;
+    height: 180px;
+    width: 200px;
+}
+
+.home__imageholder {
+    position: relative;
+    padding: 2px;
+    /*border: solid gray 1px;*/
+}
+
+.home__housedescription {
+    position: relative;
+    left: 5px;
+    top: 5px;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.housedetail__wrapper {
+    z-index: 9998;
+    position: fixed;
+    top: 0; bottom: 0;
+    right: 0; left: 0;
+    background: rgba(0,0,0,.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.housedetail {
+    display: inline-block;
+    overflow-y: auto;
+    max-height: 80vh;
+    width: 800px;
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0,0,0,.4);
+}
+
+.housedetail__houseimage {
+    max-width: 100%;
+    margin: 0 auto;
+    bottom: 0px;
+}
+
+.housedetail__addtofavorites {
+    position: relative;
+    right: 0px;
+    top: 0px;
+    background:url(./icons/ic_favorite_black_large.png) no-repeat;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
+}
+
+.housedetail__unfavorite {
+    position: relative;
+    right: 0px;
+    top: 0px;
+    background:url(./icons/ic_favorite_border_large.png) no-repeat;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
+}
+
+
+.housedetail__extraimageswrapper {
+    margin-top: 20px;
+}
+
+.housedetail__extraimage {
+    height: 60%;
+    width: 60%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    float: right;
+    clear: right;
+}
+
+.housedetail__extratext {
+
+}
+
+.housedetail__redline {
+    position: absolute;
+    bottom: 10px;
+    left: 7%;
+}
+
+.favorites {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    background-color: #C5CAE9;
+    padding-bottom: 100px;
+}
+
+.logincreatepage {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 100%;
+    background-color: #C5CAE9;
+    padding-top: 40px;
+    padding-bottom: 100px;
+}
+
+.logincreatepage__container {
+    width: 350px;
+}
+
+.logincreatepage__inputs {
+    right: 0px;
+}
+
+.contacts {
+    position: relative;
+    height: 400px;
+    width: 80%;
+    left: 10%;
+    background-color: #C5CAE9;
+    padding-bottom: 35px;
+}
+
+.contacts__buttons {
+
+}
+
+.contacts__message {
+    position: relative;
+    margin-top: 5px;
+    background-color: #F5F5DC;
+    width: 60%;
+    height: 200px;
+}
+
+
+img { max-width: 100%; }
