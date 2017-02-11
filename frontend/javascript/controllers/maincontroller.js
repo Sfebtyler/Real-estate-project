@@ -7,6 +7,10 @@ app.controller('MainController', function(user, home, $window, $scope, $location
     vm.home = home;
     vm.username = '';
     vm.password = '';
+    vm.createusername = '';
+    vm.createemail = '';
+    vm.createpassword = '';
+    vm.createconfirmpassword = '';
     vm.homeslist = [];
     vm.premiumhomeslist = [];
     vm.homespagelist = [];
@@ -29,7 +33,7 @@ app.controller('MainController', function(user, home, $window, $scope, $location
     vm.scroll = function() {
 
             var currpath = $location.path();
-            if (currpath == '/homespage' && vm.homeslist.response.next) {
+            if (currpath == '/homespage' && vm.homeslist.response !== undefined && vm.homeslist.response.next) {
                 var homesnext = vm.homeslist.response.next;
                 console.log(homesnext);
                 $http.get(homesnext)
@@ -58,7 +62,7 @@ app.controller('MainController', function(user, home, $window, $scope, $location
                         console.log(err);
                     });
             }
-            if (currpath == '/favorites' && vm.favoriteslist.response.next) {
+            if (currpath == '/favorites' && vm.favoriteslist.response !== undefined && vm.favoriteslist.response.next) {
                 var favoritesnext = vm.favoriteslist.response.next;
                 console.log(favoritesnext);
                 $http.get(favoritesnext)
@@ -158,12 +162,9 @@ app.controller('MainController', function(user, home, $window, $scope, $location
             var token = $window.localStorage.getItem('Token');
             if (token) {
                 vm.getCurrentUser();
-                vm.current_user = true;
-                vm.login_clicked = true;
                 return;
             } else {
                 vm.current_user = false;
-                vm.login_clicked = false;
                 return;
             }
         }
@@ -193,6 +194,29 @@ app.controller('MainController', function(user, home, $window, $scope, $location
             vm.login_clicked = false;
             if ($location.path() == '/favorites') {
                 vm.reroute('/home');
+            }
+    };
+
+    vm.checkpasswordmatch = function() {
+        if(vm.createpassword !== vm.createconfirmpassword) {
+            vm.error = 'Passwords do not match!';
+        }
+        else {
+            vm.error = '';
+        }
+    };
+
+    vm.createlogin = function() {
+        if(vm.createpassword == vm.createconfirmpassword) {
+            vm.user.createlogin(vm.createusername, vm.createemail, vm.createpassword)
+            .then(function() {
+                vm.user.login(vm.createusername, vm.createpassword);
+                vm.getCurrentUser();
+                vm.reroute('/home');
+            });
+            }
+            else {
+                return;
             }
     };
 

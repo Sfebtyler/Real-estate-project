@@ -2,6 +2,25 @@
 <html ng-app="realestate">
     <head>
         <meta charset="utf-8">
+
+        <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/favicons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+        <link rel="manifest" href="/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+
         <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
         <base href="/">
@@ -9,31 +28,40 @@
     <body ng-controller="MainController as MnCtrl">
         <div class="header">
             <img class="logo" src="./nav-logo.png"></img>
-            <div class="page__menubuttons" ng-click="MnCtrl.reroute('/home')"><span class="header__span">Main</span></div>
-            <div class="page__menubuttons" ng-click="MnCtrl.reroute('/homespage')"><span class="header__span">Homes</span></div>
-            <div class="page__menubuttons" ng-click="MnCtrl.reroute('/favorites')" ng-if="MnCtrl.current_user"><span class="header__span">Favorites</span></div>
-            <div class="page__menubuttons" ng-click="MnCtrl.reroute('/contacts')"><span class="header__span">Contact Us</span></div>
+            <div class="page__menubuttons" ng-click="MnCtrl.reroute('/home')"><span
+                class="header__span">Main</span></div>
+            <div class="page__menubuttons" ng-click="MnCtrl.reroute('/homespage')"><span
+                class="header__span">Homes</span></div>
+            <div class="page__menubuttons" ng-click="MnCtrl.reroute('/favorites')"
+                ng-if="MnCtrl.current_user"><span class="header__span">Favorites</span></div>
+            <div class="page__menubuttons" ng-click="MnCtrl.reroute('/contacts')"><span
+                class="header__span">Contact Us</span></div>
             <i class="page__searchicon" ng-click="MnCtrl.opensearch=true">search</i>
             <div class="page__requestlogin" ng-if="!MnCtrl.login_clicked">
-                <div class="page__menubuttons" ng-click="MnCtrl.login_clicked=true" ng-if="!MnCtrl.current_user">Login</div>
-                <div class="page__menubuttons" ng-click="MnCtrl.reroute('/createlogin')" ng-if="!MnCtrl.current_user">Create Account</div>
-                <div class="page__menubuttons" ng-click="MnCtrl.logout()" ng-if="MnCtrl.current_user">Log Out</div>
+                <div class="page__menubuttons" ng-click="MnCtrl.login_clicked=true"
+                    ng-if="!MnCtrl.current_user">Login</div>
+                <div class="page__menubuttons" ng-click="MnCtrl.reroute('/createlogin')"
+                    ng-if="!MnCtrl.current_user">Create Account</div>
             </div>
             <div ng-if="MnCtrl.login_clicked">
                 <div class="login__wrapper" ng-if="!MnCtrl.current_user">
                     <div class="page__login" ng-if="!MnCtrl.current_user">
-                        <div>Username: <input style="color: black;" ng-model="MnCtrl.username"></input></div>
-                        <div>Password: <input style="color: black;" type="password" ng-model="MnCtrl.password"></input></div>
-                        <div class="page__menubuttons" ng-click="MnCtrl.login(MnCtrl.username, MnCtrl.password); MnCtrl.login_clicked=false;" class="home__loginsubmit">Login</div>
-                        <div class="page__menubuttons" ng-click="MnCtrl.loginrequested()">Cancel</div>
+                        <div>Username: <input style="color: black;"
+                            ng-model="MnCtrl.username"></input></div>
+                        <div>Password: <input style="color: black;" type="password"
+                            ng-model="MnCtrl.password"></input></div>
+                        <div class="page__menubuttons"
+                            ng-click="MnCtrl.login(MnCtrl.username, MnCtrl.password); MnCtrl.login_clicked=false;"
+                            class="home__loginsubmit">Login</div>
+                        <div class="page__menubuttons" ng-click="MnCtrl.login_clicked=false">Cancel</div>
                     </div>
                 </div>
 
-                <div class="page__logininfo" ng-if="MnCtrl.current_user">
-                    <div class="page__usergreeting">Welcome back {{MnCtrl.current_user.username}}!</div>
-                    <div>{{MnCtrl.current_user.email}}</div>
-                    <div class="page__menubuttons" ng-click="MnCtrl.logout()">Log Out</div>
-                </div>
+            </div>
+            <div class="page__logininfo" ng-if="MnCtrl.current_user">
+                <div class="page__usergreeting">Welcome back {{MnCtrl.current_user.username}}!</div>
+                <div>{{MnCtrl.current_user.email}}</div>
+                <div class="page__menubuttons" ng-click="MnCtrl.logout()">Log Out</div>
             </div>
         </div>
         <div class="page__searchWrapper" ng-if="MnCtrl.opensearch">

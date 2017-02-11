@@ -24,6 +24,17 @@ app.service('user', function ($http, $q, $window) {
             $window.localStorage.removeItem('Token');
     };
 
+    this.createlogin = function (cusername, cemail, cpassword) {
+        return $http.post('http://127.0.0.1:8000/users/', {
+            username: cusername,
+            email: cemail,
+            password: cpassword,
+        })
+        .then(function (response) {
+            console.log(response);
+        });
+    };
+
     this.getCurrentUser = function () {
         return $http.get('http://127.0.0.1:8000/users/current_user/')
         .then(function (response) {

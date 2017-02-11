@@ -1,8 +1,14 @@
 <div class="logincreatepage">
     <div class="logincreatepage__container">
-    <div>Username: <input class="logincreatepage__inputs"></div>
-    <div>Email: <input class="logincreatepage__inputs"></div>
-    <div>Password: <input class="logincreatepage__inputs"></div>
-    <div>Confirm Password: <input class="logincreatepage__inputs"></div>
+        <div>Username: <input class="logincreatepage__inputs" ng-model="MnCtrl.createusername"></div>
+        <div>Email: <input class="logincreatepage__inputs" ng-model="MnCtrl.createemail"></div>
+        <div>Phone: <input class="logincreatepage__inputs" ng-model="MnCtrl.createphone"></div>
+        <div>Password: <input type="password" class="logincreatepage__inputs"
+            ng-model="MnCtrl.createpassword" ng-change="MnCtrl.checkpasswordmatch()"></div>
+        <div>Confirm Password: <input type="password" class="logincreatepage__inputs"
+            ng-model="MnCtrl.createconfirmpassword" ng-change="MnCtrl.checkpasswordmatch()"></div>
+        <div style="color:red;">{{MnCtrl.error}}</div>
+        <button ng-click="MnCtrl.createlogin()">Submit</button>
+        <button>Cancel</button>
     </div>
 </div>
