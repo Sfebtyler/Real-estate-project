@@ -35,7 +35,7 @@ app.service('user', function ($http, $q, $window) {
             $http.post('http://127.0.0.1:8000/users/create_profile/', {
                 user: response.data.id,
                 phone_number: cphone
-            }).then(function(){
+            }).then(function(response){
                 console.log("profile", response);
             });
 
