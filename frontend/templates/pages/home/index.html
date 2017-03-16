@@ -1,9 +1,18 @@
+<div class="home__landingwrapper">
+    <div class="home__landingtext">Find your dream home!</div>
+    <div class="home__searchpage" ng-click="$event.stopPropagation()">
+        <div class="home__searchbarwrapper">
+            <label class="home__searchbar"> Search:<input ng-model="MnCtrl.search_input"/>
+            </label>
+            <i class="home__landingsearchcompleteicon" ng-click="MnCtrl.search();">forward</i>
+        </div>
+    </div>
+</div>
 <div class="maindiv" ng-init="MnCtrl.getPremiumHomesList()">
-
     <div class="home__premium_homes">
         <div class="home__houselisting" ng-if="MnCtrl.premiumhomeslist"
             ng-repeat="home in MnCtrl.premiumhomeslist.results">
-            <div ng-click="MnCtrl.detailhouseid=home.id; MnCtrl.opendetailspage=true">
+            <div ng-click="MnCtrl.detailhouseid=home.id; MnCtrl.opendetailspage=true;">
                 <div class="home__imageholder">
                     <img class="home__houseimage" ng-src={{home.image}}></img>
                     <img class="home__redline" ng-src="redline.png" ng-if=home.sold></img>

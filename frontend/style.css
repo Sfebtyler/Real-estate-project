@@ -7,7 +7,7 @@ html {
     top: 0;
     left: 0;
     width: 100vw;
-    height: 64px;
+    height: 48px;
     z-index: 999;
     display: flex;
     flex-direction: row;
@@ -156,6 +156,7 @@ html {
 }
 
 .logo {
+    margin-left: 32px;
     height: 35px;
     width: 80px;
     align-self: center;
@@ -164,7 +165,7 @@ html {
 .page__menubuttons {
     width: 200px;
     color: white;
-    font-size: 20px;
+    font-size: 15px;
     display: flex;
     justify-content: center;
 }
@@ -207,20 +208,8 @@ html {
     color: white;
 }
 
-.page__addtofavorites {
-    background:url(./icons/ic_favorite_border_large.png) no-repeat;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    border: none;
-}
-
-.page__unfavorite {
-    background:url(./icons/ic_favorite_black_large.png) no-repeat;
-    cursor: pointer;
-    width: 50px;
-    height: 50px;
-    border: none;
+.page__searchfilters {
+    padding: 5px;
 }
 
 .maindiv {
@@ -228,7 +217,6 @@ html {
     width: 80%;
     left: 10%;
     height: 100%;
-    padding-top: 62px;
     background-color: #E8EAF6;
     padding-bottom: 100px;
 }
@@ -244,8 +232,78 @@ html {
     flex-wrap: wrap;
 }
 
-.home__premium_homes > div {
-    /*background-color: rgba(204, 204, 255, 0.50);*/
+.home__landingwrapper {
+    position: relative;
+    height: 33vw;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/background.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+
+}
+
+.home__landingimg {
+    width: 100%;
+}
+
+.home__searchpage {
+    background-color: rgba(255, 255, 255, 0.90);
+    border: 1px grey solid;
+    border-radius: 5px;
+}
+
+.home__searchbarwrapper {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.home__searchbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.home__landingsearchcompleteicon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    right: 0px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: black;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.home__landingtext {
+    color: white;
+    font-size: 35px;
+    padding-bottom: 20px;
+    text-shadow: 0 0 2px black;
+    text-align: center;
 }
 
 .home__houselisting {
@@ -297,6 +355,33 @@ html {
 .home__favoriteIcon {
     margin-left: auto;
 
+}
+
+.home__exitbutton {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    right: 0px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: red;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
 }
 
 .home__nohomemessagediv {
@@ -420,21 +505,65 @@ html {
 }
 
 .logincreatepage {
-    position: relative;
     width: 80%;
-    left: 10%;
-    height: 100%;
+    margin: 80px auto 0;
     padding-top: 62px;
     background-color: #E8EAF6;
     padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,.4);
 }
 
 .logincreatepage__container {
     width: 350px;
 }
+.logincreatepage__container label {
+        display: flex;
+        justify-content: flex-end;
+}
+
+.logincreatepage__error {
+    text-align: center;
+}
 
 .logincreatepage__inputs {
     right: 0px;
+    margin-left: 5px;
+    border: 1px solid gray;
+}
+
+.logincreatepage__inputs:focus {
+    border: 1px solid white;
+}
+
+.logincreatepage__usernameavailableicon {
+    position:absolute;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: green;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
 }
 
 .contacts {

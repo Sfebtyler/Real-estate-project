@@ -1,11 +1,11 @@
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from app.models import Home, Favorites, ExtraImage, ContactInfo
-from rest_framework import viewsets, serializers
+from app.models import Home, Favorites, ExtraImage, ContactInfo, Profile
+from rest_framework import viewsets
 from rest_framework.decorators import list_route, detail_route
 from rest_framework import status
 from app.serializers import UserSerializer, HomeSerializer, FavoritesSerializer, ExtraImageSerializer, \
-    EmailSerializer, ContactInfoSerializer
+    EmailSerializer, ContactInfoSerializer, ProfileSerializer
 from rest_framework.response import Response
 from django.db.models import Q
 
@@ -15,6 +15,16 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = []
 
+    @list_route(methods=['POST'], permission_classes=[])
+    def create_profile(self, request, *args, **kwargs):
+        print(request.data['phone_number'])
+        moddeddata = {'user': request.data['user'], 'phone_number': request.data['phone_number']}
+        serializer = ProfileSerializer(data=moddeddata)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        profile = Profile.objects.get(user=request.data['user'])
+        return Response(ProfileSerializer(profile).data)
+
     @list_route(methods=['GET'], permission_classes=[])
     def current_user(self, request, *args, **kwargs):
         if request.user:
@@ -22,6 +32,15 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response(serializer.data)
         else:
             return Response({'error': 'Not logged in!'}, status=status.HTTP_401_UNAUTHORIZED)
+
+    @list_route(methods=['GET'])
+    def check_if_exists(self, instance):
+        params = self.request.query_params
+        username = params['q']
+        if len(User.objects.filter(username=username)) > 0:
+            return Response("Username already in use!")
+        else:
+            return Response("Username is available!")
 
 
 class EmailViewSet(viewsets.ViewSet):
@@ -57,7 +76,6 @@ class HomeViewSet(viewsets.ModelViewSet):
 
         return Response(status=status.HTTP_200_OK)
 
-
     def get_queryset(self):
         qset = self.queryset.prefetch_related('favorites_set__user')
         params = self.request.query_params
@@ -68,13 +86,31 @@ class HomeViewSet(viewsets.ModelViewSet):
             print(self.request.user)
             qset = qset.filter(favorites__user=self.request.user)
 
+        if 'totalbeds' in params and params['totalbeds'] != '':
+            qset = qset.filter(
+                Q(numofbeds__icontains=params['totalbeds'])
+                              )
+
+        if 'totalbaths' in params and params['totalbaths'] != '':
+            qset = qset.filter(Q(numofbaths__icontains=params['totalbaths'])
+                            )
+
+        if 'pricerangestart' in params and params['pricerangestart'] != '':
+            qset = qset.filter(Q(price__gte=params['pricerangestart'])
+                            )
+
+        if 'pricerangestop' in params and params['pricerangestop'] != '':
+            qset = qset.filter(Q(price__lte=params['pricerangestop'])
+                            )
+
+        if 'pricerangestart' in params and 'pricerangestop' in params and params['pricerangestart'] != '' and \
+                params['pricerangestop'] != '':
+            qset = qset.filter(Q(price__range=(params['pricerangestart'], params['pricerangestop'])))
+
         if 'q' in params:
             # Poor mans search endpoint
             moddablesearchterm = params['q']
             search_term = moddablesearchterm.strip()
-
-            if not search_term or len(search_term) <= 2:
-                raise serializers.ValidationError('Search Term must be at least 3 characters')
 
             qset = qset.filter(
                 Q(title__icontains=search_term) |
@@ -82,8 +118,7 @@ class HomeViewSet(viewsets.ModelViewSet):
                 Q(street__icontains=search_term) |
                 Q(mlsnumber__number__icontains=search_term)
             )
-        return qset
-
+        return qset.distinct()
 
 class FavoritesViewSet(viewsets.ModelViewSet):
     queryset = Favorites.objects.all()

@@ -9,3 +9,6 @@ pilkit==1.1.13
 django-shell-plus
 ipython
 django-extensions
+boto==2.46.1
+django-ses==0.8.2
+django-smtp-ssl==1.0

@@ -1,6 +1,7 @@
-<div class="maindiv" ng-init="MnCtrl.getFavorites()">
+<div class="maindiv" ng-init="MnCtrl.checkifsearchparams()">
+
     <div class="home__premium_homes">
-        <div class="home__houselisting" ng-repeat="home in MnCtrl.favoriteslist.results">
+        <div class="home__houselisting" ng-repeat="home in MnCtrl.homeslist.results track by $index">
             <div ng-click="MnCtrl.detailhouseid=home.id; MnCtrl.opendetailspage=true">
                 <div class="home__imageholder">
                     <img class="home__houseimage" ng-src={{home.image}}></img>
@@ -13,14 +14,18 @@
                 <div class="home__houseprice" ng-if='!home.sold'>${{home.price}}</div>
                 <div class="home__housesold" ng-if='home.sold'>Sold</div>
             </div>
-            <i class="favorite_unfavoriteicons" ng-if="home.is_favorite"
-                ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user)">
+            <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && !home.is_favorite"
+                ng-click="MnCtrl.favorite(home.id, MnCtrl.current_user.id); home.is_favorite=true">
+                favorite_border
+            </i>
+            <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && home.is_favorite"
+                ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user); home.is_favorite=false">
                 favorite
             </i>
         </div>
     </div>
 
-    <div class="home__nohomemessagediv" ng-if="!MnCtrl.favoriteslist.results">
-        <p class="home__nohomemessage">No favorites</p>
+    <div class="home__nohomemessagediv" ng-if="MnCtrl.nohomesinsearch">
+        <p class="home__nohomemessage">Search returned no results</p>
     </div>
 </div>

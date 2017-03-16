@@ -1,14 +1,32 @@
-<div class="logincreatepage">
+<form class="logincreatepage">
     <div class="logincreatepage__container">
-        <div>Username: <input class="logincreatepage__inputs" ng-model="MnCtrl.createusername"></div>
-        <div>Email: <input class="logincreatepage__inputs" ng-model="MnCtrl.createemail"></div>
-        <div>Phone: <input class="logincreatepage__inputs" ng-model="MnCtrl.createphone"></div>
-        <div>Password: <input type="password" class="logincreatepage__inputs"
-            ng-model="MnCtrl.createpassword" ng-change="MnCtrl.checkpasswordmatch()"></div>
-        <div>Confirm Password: <input type="password" class="logincreatepage__inputs"
-            ng-model="MnCtrl.createconfirmpassword" ng-change="MnCtrl.checkpasswordmatch()"></div>
-        <div style="color:red;">{{MnCtrl.error}}</div>
-        <button ng-click="MnCtrl.createlogin()">Submit</button>
-        <button>Cancel</button>
+        <label>
+            Username:
+            <input class="logincreatepage__inputs" ng-trim="false"
+                ng-change="MnCtrl.usernameremovespaces(MnCtrl.createusername); MnCtrl.checkifuniqueuser()"
+                ng-model="MnCtrl.createusername" ng-model-options="{ debounce: 500 }">
+                <i class="logincreatepage__usernameavailableicon" style="color:green;"
+                    ng-if="MnCtrl.usernameavailable && MnCtrl.usernametooshort!=true">check
+                </i>
+        </label>
+        <div class="logincreatepage__error" style="color:red;"
+            ng-if="MnCtrl.usernameunavailable">{{MnCtrl.error}}
+        </div>
+        <div ng-if="MnCtrl.usernametooshort"
+            style="color:red;">Username must be at least 4 characters long!
+        </div>
+        <label>Email: <input class="logincreatepage__inputs" ng-model="MnCtrl.createemail"></label>
+        <label>Phone: <input class="logincreatepage__inputs" ng-model="MnCtrl.createphone"></label>
+        <label>Password: <input type="password" class="logincreatepage__inputs"
+            ng-model="MnCtrl.createpassword" ng-change="MnCtrl.passwordremovespaces(MnCtrl.createpassword); MnCtrl.checkpasswordmatch()"></label>
+        <label>Confirm Password: <input type="password" class="logincreatepage__inputs"
+            ng-model="MnCtrl.createconfirmpassword" ng-change="MnCtrl.checkpasswordmatch()"></label>
+        <div class="logincreatepage__error" style="color:red;"
+            ng-if="MnCtrl.error!='Username is available!' && MnCtrl.error!='Username already in use!'">
+            {{MnCtrl.error}}
+        </div>
+        <div class="" style="text-align: center;">
+            <i class="page__searchcompleteicon" ng-click="MnCtrl.createlogin()">forward</i>
+        </div>
     </div>
-</div>
+</form>

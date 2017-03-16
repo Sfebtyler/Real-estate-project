@@ -2,6 +2,12 @@ from django.db import models
 from django.conf import settings
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
+from django.contrib.auth.models import User
+
+
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone_number = models.CharField(max_length=12, null=True)
 
 
 class ExtraImage(models.Model):
@@ -23,8 +29,10 @@ class Home(models.Model):
     city = models.TextField(default='')
     state = models.TextField(default='')
     street = models.TextField(default='')
-    price = models.CharField(default='', max_length=10000)
+    price = models.IntegerField(default='')
     sold = models.BooleanField(default=False)
+    numofbeds = models.CharField(default='', max_length=10000, blank=True)
+    numofbaths = models.CharField(default='', max_length=10000, blank=True)
     is_premium = models.BooleanField(default=False)
     image = models.ImageField(upload_to='images', null=True, blank=True)
     published = models.BooleanField(default=False)
@@ -66,8 +74,8 @@ class ContactInfo(models.Model):
 
 
 class EmailSettings(models.Model):
-    to_email = models.EmailField()
-    from_email = models.EmailField()
+    from_email = models.EmailField(null=True)
+    to_email = models.EmailField(null=True)
 
     class Meta:
         verbose_name_plural = 'Email Settings'

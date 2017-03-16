@@ -1,24 +1,29 @@
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from app.models import Home, Favorites, ExtraImage, ContactInfo, EmailSettings
+from app.models import Home, Favorites, ExtraImage, ContactInfo, EmailSettings, Profile
 from rest_framework import serializers
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'id', 'password')
-        write_only_fields = ('password',)
+        fields = ('url', 'username', 'email', 'id')
 
     def create(self, validated_data):
-        print(validated_data)
         u = User(
             username=validated_data['username'],
             email=validated_data['email'],
         )
-        u.set_password(validated_data['password'])
+        request = self.context.get("request")
+        u.set_password(request.data.get('password'))
         u.save()
         return u
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields = ('user', 'phone_number')
 
 
 class FavoritesSerializer(serializers.ModelSerializer):

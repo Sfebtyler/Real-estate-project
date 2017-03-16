@@ -6,6 +6,10 @@ app.service('home', function ($http, $q, $window, $routeParams) {
     that.getHomeListings = function () {
         return $http.get('http://127.0.0.1:8000/homes/?all=true')
         .then(function (response) {
+            console.log('success', response.data);
+            response.data.results.forEach(function(house) {
+                house.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            });
             return response.data;
         });
     };
@@ -14,6 +18,9 @@ app.service('home', function ($http, $q, $window, $routeParams) {
         return $http.get('http://127.0.0.1:8000/homes/?premium_homes=true')
         .then(function (response) {
             console.log(response);
+            response.data.results.forEach(function(house) {
+                house.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            });
             return response.data;
         });
     };
@@ -54,6 +61,9 @@ app.service('home', function ($http, $q, $window, $routeParams) {
     that.getFavorites = function () {
         return $http.get('http://127.0.0.1:8000/homes/?favorites=true')
         .then(function(response) {
+            response.data.results.forEach(function(house) {
+                house.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            });
             return response.data;
         });
     };

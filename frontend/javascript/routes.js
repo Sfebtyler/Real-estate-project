@@ -17,6 +17,9 @@ angular.module('routes',['ngRoute'])
     .when('/createlogin', {
         templateUrl: 'templates/pages/logincreate/create.html'
     })
+    .when('/search', {
+        templateUrl: 'templates/pages/searchpage/searchpage.html'
+    })
     .when('/', {
     redirectTo: '/home'
     });

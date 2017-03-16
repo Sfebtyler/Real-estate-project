@@ -24,14 +24,28 @@ app.service('user', function ($http, $q, $window) {
             $window.localStorage.removeItem('Token');
     };
 
-    this.createlogin = function (cusername, cemail, cpassword) {
+    this.createlogin = function (cusername, cemail, cpassword, cphone) {
         return $http.post('http://127.0.0.1:8000/users/', {
             username: cusername,
             email: cemail,
             password: cpassword,
+            phone_number: cphone
         })
-        .then(function (response) {
+        .then(function(response) {
+            $http.post('http://127.0.0.1:8000/users/create_profile/', {
+                user: response.data.id,
+                phone_number: cphone
+            }).then(function(){
+                console.log("profile", response);
+            });
+
             console.log(response);
+        });
+    };
+
+    this.checkifuniqueuser = function(cusername) {
+        return $http.get('http://127.0.0.1:8000/users/check_if_exists/', {
+                params: {q: cusername}
         });
     };
 

@@ -54,12 +54,15 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'PAGE_SIZE': 6
+    'PAGE_SIZE': 5
 }
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'sfebtyler@gmail.com'
-EMAIL_HOST_PASSWORD = 'fyyhxbzuomvuzfwy'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST_USER = 'AKIAJD7APKTG7MMZ4HAA'
+EMAIL_HOST_PASSWORD = 'Alip6S6+v/2VKnj90l4R1A4NpCIKsSvftnqTUykRP3kE'
+AWS_ACCESS_KEY_ID = 'AKIAIBOB24CG2X6A4SUA'
+AWS_SECRET_ACCESS_KEY = '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'
+EMAIL_HOST = 'email-smtp.us-west-2.amazonaws.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
@@ -103,6 +106,8 @@ DATABASES = {
 
 # Password validation
 # https://docs.djangoproject.com/en/1.10/ref/settings/#auth-password-validators
+
+# AUTH_USER_MODEL = 'app.User'
 
 AUTH_PASSWORD_VALIDATORS = [
     {

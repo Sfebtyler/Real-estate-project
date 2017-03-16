@@ -1,4 +1,4 @@
-<div class="maindiv" ng-init="MnCtrl.getContactInfoOnPageLoad()">
+<div class="maindiv" ng-init="MnCtrl.getContactInfoOnPageLoad(); MnCtrl.setemailparams();" style="padding-top:40px;">
     <div>
         <button class="contacts__buttons" ng-if="!MnCtrl.startmessage" ng-click="MnCtrl.startmessage=true">Send us a message</button>
     </div>
