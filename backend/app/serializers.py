@@ -7,20 +7,33 @@ from rest_framework import serializers
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'id')
+        fields = ('username', 'email', 'password')
 
     def create(self, validated_data):
         u = User(
             username=validated_data['username'],
-            email=validated_data['email'],
+            email=validated_data['email']
         )
-        request = self.context.get("request")
-        u.set_password(request.data.get('password'))
+        u.set_password(validated_data['password'])
         u.save()
+        print(u)
+        p = Profile(
+            user=u,
+            phone_number=self.context['request'].data['phone_number']
+        )
+        p.save()
         return u
 
 
+class UserReadSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        exclude = ('password', )
+
+
 class ProfileSerializer(serializers.ModelSerializer):
+    user = UserReadSerializer(many=False, read_only=True)
+
     class Meta:
         model = Profile
         fields = ('user', 'phone_number')

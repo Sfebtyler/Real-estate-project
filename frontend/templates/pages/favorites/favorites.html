@@ -14,7 +14,7 @@
                 <div class="home__housesold" ng-if='home.sold'>Sold</div>
             </div>
             <i class="favorite_unfavoriteicons" ng-if="home.is_favorite"
-                ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user)">
+                ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user.user)">
                 favorite
             </i>
         </div>

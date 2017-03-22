@@ -29,6 +29,7 @@ app.service('home', function ($http, $q, $window, $routeParams) {
         if (!fullurl) {
             return $http.get('http://127.0.0.1:8000/homes/' + id + '/')
             .then(function(response) {
+
                 return response.data;
             });
         } else {

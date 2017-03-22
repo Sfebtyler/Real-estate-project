@@ -107,8 +107,9 @@ app.controller('MainController', function(user, home, $window, $scope, $location
 
     vm.setemailparams = function () {
         if (vm.current_user) {
-            vm.guestname = vm.current_user.username;
-            vm.guestemail = vm.current_user.email;
+            vm.guestname = vm.current_user.user.username;
+            vm.guestemail = vm.current_user.user.email;
+            vm.guestphone = vm.current_user.phone_number;
         }
     };
 
@@ -234,7 +235,7 @@ app.controller('MainController', function(user, home, $window, $scope, $location
         vm.user.getCurrentUser()
         .then(function (data) {
             vm.current_user = data;
-            vm.current_user.id = data.id;
+            vm.current_user.user.id = data.id;
         });
     };
 

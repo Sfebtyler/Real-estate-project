@@ -5,9 +5,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import list_route, detail_route
 from rest_framework import status
 from app.serializers import UserSerializer, HomeSerializer, FavoritesSerializer, ExtraImageSerializer, \
-    EmailSerializer, ContactInfoSerializer, ProfileSerializer
+    EmailSerializer, ContactInfoSerializer, ProfileSerializer, UserReadSerializer
 from rest_framework.response import Response
 from django.db.models import Q
+from itertools import chain
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -15,21 +16,22 @@ class UserViewSet(viewsets.ModelViewSet):
     serializer_class = UserSerializer
     permission_classes = []
 
-    @list_route(methods=['POST'], permission_classes=[])
-    def create_profile(self, request, *args, **kwargs):
-        print(request.data['phone_number'])
-        moddeddata = {'user': request.data['user'], 'phone_number': request.data['phone_number']}
-        serializer = ProfileSerializer(data=moddeddata)
-        serializer.is_valid(raise_exception=True)
-        serializer.save()
-        profile = Profile.objects.get(user=request.data['user'])
-        return Response(ProfileSerializer(profile).data)
+    def get_serializer_class(self):
+        if self.request.method == "POST":
+            return UserSerializer
+        else:
+            return UserReadSerializer
 
     @list_route(methods=['GET'], permission_classes=[])
     def current_user(self, request, *args, **kwargs):
         if request.user:
-            serializer = self.get_serializer(instance=request.user)
-            return Response(serializer.data)
+            print('REQUEST', request.user)
+            tmpProfile = Profile.objects.filter(user=request.user.id).first()
+            if tmpProfile:
+                userprofile = ProfileSerializer(instance=tmpProfile)
+                return Response(userprofile.data)
+            else:
+                return Response({'error': 'Profile does not exist!'}, status=status.HTTP_404_NOT_FOUND)
         else:
             return Response({'error': 'Not logged in!'}, status=status.HTTP_401_UNAUTHORIZED)
 

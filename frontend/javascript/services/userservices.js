@@ -29,16 +29,9 @@ app.service('user', function ($http, $q, $window) {
             username: cusername,
             email: cemail,
             password: cpassword,
-            phone_number: cphone
+            phone_number: cphone,
         })
         .then(function(response) {
-            $http.post('http://127.0.0.1:8000/users/create_profile/', {
-                user: response.data.id,
-                phone_number: cphone
-            }).then(function(response){
-                console.log("profile", response);
-            });
-
             console.log(response);
         });
     };
@@ -52,6 +45,7 @@ app.service('user', function ($http, $q, $window) {
     this.getCurrentUser = function () {
         return $http.get('http://127.0.0.1:8000/users/current_user/')
         .then(function (response) {
+            that.profiledetails = response;
             return response.data;
         });
     };

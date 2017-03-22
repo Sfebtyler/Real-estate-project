@@ -3,11 +3,19 @@ from django.conf import settings
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
 from django.contrib.auth.models import User
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
+    PermissionsMixin
+#
+#
+# class BaseUser(AbstractBaseUser, PermissionsMixin):
+#     id = models.CharField(max_length=1000000)
+#     email = models.EmailField()
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-    phone_number = models.CharField(max_length=12, null=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
+    userid = models.CharField(max_length=100000, null=True)
+    phone_number = models.CharField(max_length=15, null=True)
 
 
 class ExtraImage(models.Model):

@@ -59,7 +59,7 @@
 
             </div>
             <div class="page__logininfo" ng-if="MnCtrl.current_user">
-                <div class="page__usergreeting">Welcome back {{MnCtrl.current_user.username}}!</div>
+                <div class="page__usergreeting">Welcome back {{MnCtrl.current_user.user.username}}!</div>
                 <div class="page__menubuttons" ng-click="MnCtrl.logout()">Log Out</div>
             </div>
         </div>
@@ -133,11 +133,11 @@
 
                 <div>
                     <i class="favorite_unfavoriteicons home__favoriteIcon" ng-if="MnCtrl.current_user && MnCtrl.listingdetail.is_favorite"
-                        ng-click="MnCtrl.deleteFromFavorites(MnCtrl.listingdetail.id, MnCtrl.current_user.id); MnCtrl.listingdetail.is_favorite=false">
+                        ng-click="MnCtrl.deleteFromFavorites(MnCtrl.listingdetail.id, MnCtrl.current_user.user.id); MnCtrl.listingdetail.is_favorite=false">
                         favorite
                     </i>
                     <i class="favorite_unfavoriteicons home__favoriteIcon" ng-if="MnCtrl.current_user && !MnCtrl.listingdetail.is_favorite"
-                        ng-click="MnCtrl.favorite(MnCtrl.listingdetail.id, MnCtrl.current_user.id); MnCtrl.listingdetail.is_favorite=true">
+                        ng-click="MnCtrl.favorite(MnCtrl.listingdetail.id, MnCtrl.current_user.user.id); MnCtrl.listingdetail.is_favorite=true">
                         favorite_border
                     </i>
                     <i class="home__exitbutton" ng-click="MnCtrl.opendetailspage=false">
@@ -153,8 +153,7 @@
                     <div class="housedetail__extratext">{{image.description}}</div>
                 </div>
                 <button ng-click="MnCtrl.reroute('/contacts'); MnCtrl.opendetailspage=false;
-                    MnCtrl.startmessage=true; MnCtrl.message='I would like to know more about home#' +
-                    MnCtrl.listingdetail.mls_number + '.'">
+                    MnCtrl.startmessage=true; MnCtrl.message='I would like to know more about home#' + MnCtrl.listingdetail.mls_number + '.'">
                     Request more info
                 </button>
             </div>
