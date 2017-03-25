@@ -1,48 +1,26 @@
-from django.contrib.auth.models import User
 from django.core.mail import send_mail
-from app.models import Home, Favorites, ExtraImage, ContactInfo, EmailSettings, Profile
+from app.models import Home, Favorites, ExtraImage, ContactInfo, EmailSettings, UserModel
 from rest_framework import serializers
-
-
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('username', 'email', 'password')
-
-    def create(self, validated_data):
-        u = User(
-            username=validated_data['username'],
-            email=validated_data['email']
-        )
-        u.set_password(validated_data['password'])
-        u.save()
-        print(u)
-        p = Profile(
-            user=u,
-            phone_number=self.context['request'].data['phone_number']
-        )
-        p.save()
-        return u
-
-
-class UserReadSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        exclude = ('password', )
-
-
-class ProfileSerializer(serializers.ModelSerializer):
-    user = UserReadSerializer(many=False, read_only=True)
-
-    class Meta:
-        model = Profile
-        fields = ('user', 'phone_number')
 
 
 class FavoritesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Favorites
         fields = ('id', 'user', 'list')
+
+
+class UserSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = UserModel
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'phone')
+
+    def create(self, validated_data):
+        password = self.context['request'].data['password']
+        user = super(UserSerializer, self).create(validated_data)
+        user.set_password(password)
+        user.save()
+        return user
 
 
 class ExtraImageSerializer(serializers.HyperlinkedModelSerializer):

@@ -25,11 +25,11 @@
                 <div class="home__housesold" ng-show={{home.sold}}>Sold</div>
             </div>
             <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && !home.is_favorite"
-                    ng-click="MnCtrl.favorite(home.id, MnCtrl.current_user.user.id); home.is_favorite=true">
+                    ng-click="MnCtrl.favorite(home.id, MnCtrl.current_user.id); home.is_favorite=true">
                     favorite_border
             </i>
             <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && home.is_favorite"
-                ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user.user); home.is_favorite=false">
+                ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user.id); home.is_favorite=false">
                 favorite
             </i>
         </div>

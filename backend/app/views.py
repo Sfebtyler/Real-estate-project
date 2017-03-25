@@ -1,35 +1,29 @@
 from django.contrib.auth.models import User
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from app.models import Home, Favorites, ExtraImage, ContactInfo, Profile
+from app.models import Home, Favorites, ExtraImage, ContactInfo, UserModel
 from rest_framework import viewsets
 from rest_framework.decorators import list_route, detail_route
 from rest_framework import status
 from app.serializers import UserSerializer, HomeSerializer, FavoritesSerializer, ExtraImageSerializer, \
-    EmailSerializer, ContactInfoSerializer, ProfileSerializer, UserReadSerializer
+    EmailSerializer, ContactInfoSerializer
 from rest_framework.response import Response
 from django.db.models import Q
-from itertools import chain
 
 
 class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all().order_by('-date_joined')
+    queryset = UserModel.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
     permission_classes = []
-
-    def get_serializer_class(self):
-        if self.request.method == "POST":
-            return UserSerializer
-        else:
-            return UserReadSerializer
 
     @list_route(methods=['GET'], permission_classes=[])
     def current_user(self, request, *args, **kwargs):
         if request.user:
             print('REQUEST', request.user)
-            tmpProfile = Profile.objects.filter(user=request.user.id).first()
+            tmpProfile = UserModel.objects.filter(id=request.user.id).first()
             if tmpProfile:
-                userprofile = ProfileSerializer(instance=tmpProfile)
-                return Response(userprofile.data)
+                userprofile = UserSerializer(instance=tmpProfile, context={'request': request}).data
+                print('profile', userprofile)
+                return Response(userprofile)
             else:
                 return Response({'error': 'Profile does not exist!'}, status=status.HTTP_404_NOT_FOUND)
         else:
@@ -39,7 +33,7 @@ class UserViewSet(viewsets.ModelViewSet):
     def check_if_exists(self, instance):
         params = self.request.query_params
         username = params['q']
-        if len(User.objects.filter(username=username)) > 0:
+        if len(UserModel.objects.filter(username=username)) > 0:
             return Response("Username already in use!")
         else:
             return Response("Username is available!")
@@ -79,14 +73,18 @@ class HomeViewSet(viewsets.ModelViewSet):
         return Response(status=status.HTTP_200_OK)
 
     def get_queryset(self):
-        qset = self.queryset.prefetch_related('favorites_set__user')
+        if self.request.user != 'undefined':
+            qset = self.queryset.prefetch_related('favorites_set__user')
+        else:
+            qset = Home.objects.all()
         params = self.request.query_params
+        user = self.request.user
         if 'premium_homes' in params:
             qset = qset.filter(is_premium=True)
 
         if 'favorites' in params:
-            print(self.request.user)
-            qset = qset.filter(favorites__user=self.request.user)
+            print('id', user)
+            qset = qset.filter(favorites__user=user)
 
         if 'totalbeds' in params and params['totalbeds'] != '':
             qset = qset.filter(

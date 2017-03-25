@@ -20,6 +20,12 @@ angular.module('routes',['ngRoute'])
     .when('/search', {
         templateUrl: 'templates/pages/searchpage/searchpage.html'
     })
+    .when('/passwordresetrequest', {
+        templateUrl: 'templates/pages/logincreate/passwordresetrequest.html'
+    })
+    .when('/passwordreset', {
+        templateUrl: 'templates/pages/logincreate/passwordreset.html'
+    })
     .when('/', {
     redirectTo: '/home'
     });

@@ -2,20 +2,37 @@ from django.db import models
 from django.conf import settings
 from imagekit.models import ImageSpecField
 from imagekit.processors import ResizeToFill
-from django.contrib.auth.models import User
-from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, \
-    PermissionsMixin
-#
-#
-# class BaseUser(AbstractBaseUser, PermissionsMixin):
-#     id = models.CharField(max_length=1000000)
-#     email = models.EmailField()
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
+from django.contrib.auth.models import UserManager
+from django.utils.translation import ugettext_lazy as _
+from django.utils import timezone
 
 
-class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)
-    userid = models.CharField(max_length=100000, null=True)
-    phone_number = models.CharField(max_length=15, null=True)
+class UserModel(AbstractBaseUser, PermissionsMixin):
+    username = models.CharField(max_length=50, unique=True)
+    email = models.EmailField(blank=False)
+    first_name = models.CharField(max_length=100, null=True)
+    last_name = models.CharField(max_length=100, null=True)
+    phone = models.CharField(max_length=20)
+    is_staff = models.BooleanField(default=False)
+    is_superuser = models.BooleanField(default=False)
+    is_admin = models.BooleanField(default=False)
+    date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
+    is_active = models.BooleanField(default=True)
+
+    REQUIRED_FIELDS = ['email']
+    USERNAME_FIELD = 'username'
+    objects = UserManager()
+
+    def get_full_name(self):
+        full_name = '{} {}'.format(self.first_name, self.last_name).strip()
+        return full_name or self.email
+
+    def get_short_name(self):
+        return self.first_name or self.email
+
+    class Meta:
+        verbose_name_plural = 'Users'
 
 
 class ExtraImage(models.Model):
@@ -69,8 +86,6 @@ class ContactInfo(models.Model):
     listed_agent_name = models.CharField(max_length=20)
     listed_email = models.EmailField()
     listed_phone_number = models.CharField(max_length=20)
-    leads_from_email = models.EmailField()
-    leads_to_email = models.EmailField()
 
     class Meta:
         verbose_name_plural = 'Contact Info'

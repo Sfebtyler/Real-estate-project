@@ -29,7 +29,7 @@ app.service('user', function ($http, $q, $window) {
             username: cusername,
             email: cemail,
             password: cpassword,
-            phone_number: cphone,
+            phone: cphone,
         })
         .then(function(response) {
             console.log(response);
