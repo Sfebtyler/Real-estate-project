@@ -13,6 +13,7 @@ router.register(r'homes', views.HomeViewSet)
 router.register(r'favorites', views.FavoritesViewSet)
 router.register(r'contact-us', views.EmailViewSet, 'contact-us')
 router.register(r'contacts', views.ContactInfoViewSet)
+router.register(r'password-reset', views.PasswordResetViewSet, 'password-reset')
 
 urlpatterns = [
     url(r'^', include(router.urls)),

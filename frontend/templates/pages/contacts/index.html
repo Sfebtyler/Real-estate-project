@@ -1,29 +1,39 @@
-<div class="maindiv" ng-init="MnCtrl.getContactInfoOnPageLoad(); MnCtrl.setemailparams();" style="padding-top:40px;">
-    <div>
-        <button class="contacts__buttons" ng-if="!MnCtrl.startmessage" ng-click="MnCtrl.startmessage=true">Send us a message</button>
+<div class="contacts" ng-init="MnCtrl.getContactInfoOnPageLoad(); MnCtrl.setemailparams();" style="padding-top:40px;">
+    <div class="contacts__wrapper">
+        <div class="contacts__company_image_wrapper">
+            <img class="contacts__company_image" ng-src={{MnCtrl.company_image}}></img>
+        </div>
+        <p>
+            {{MnCtrl.company_info}}
+        </p>
+        <div class="contacts__contactinfo">
+            You can reach me with the following information:<br>
+            Phone: {{MnCtrl.listed_phone_number}} <br>
+            Email: {{MnCtrl.listed_email}}
+        </div>
+        <div>
+            <button class="contacts__buttons" ng-if="!MnCtrl.startmessage" ng-click="MnCtrl.startmessage=true">Send us a message</button>
+        </div>
+        <div>
+            <input ng-if="MnCtrl.startmessage" class="contacts__inputs" ng-model="MnCtrl.guestname" placeholder="Name"></input>
+        </div>
+        <div>
+            <input ng-if="MnCtrl.startmessage" class="contacts__inputs" ng-model="MnCtrl.guestphone" placeholder="Phone number"></input>
+        </div>
+        <div>
+            <input ng-if="MnCtrl.startmessage" class="contacts__inputs" ng-model="MnCtrl.guestemail" placeholder="Email"></input>
+        </div>
+        <div>
+            <textarea class="contacts__message" ng-if="MnCtrl.startmessage" ng-init="MnCtrl.scrollToBottom()" ng-model="MnCtrl.message" placeholder="What can we do for you today?"></textarea>
+        </div>
+        <div>
+            <!-- <div ng-if="MnCtrl.startmessage">
+                <div vc-recaptcha
+                key="'---- YOUR PUBLIC KEY GOES HERE ----'">
+                </div>
+            </div> -->
+            <button class="contacts__buttons" ng-if="MnCtrl.startmessage" ng-click="MnCtrl.sendmessage()">Send</button>
+            <button class="contacts__buttons" ng-if="MnCtrl.startmessage" ng-click="MnCtrl.startmessage=false">cancel</button>
+        </div>
     </div>
-    <div>
-        <input ng-if="MnCtrl.startmessage" ng-model="MnCtrl.guestname" placeholder="Name"></input>
-    </div>
-    <div>
-        <input ng-if="MnCtrl.startmessage" ng-model="MnCtrl.guestphone" placeholder="Phone number"></input>
-    </div>
-    <div>
-        <input ng-if="MnCtrl.startmessage" ng-model="MnCtrl.guestemail" placeholder="Email"></input>
-    </div>
-    <div>
-        <textarea class="contacts__message" ng-if="MnCtrl.startmessage" ng-model="MnCtrl.message" placeholder="What can we do for you today?"></textarea>
-    </div>
-    <div>
-        <!-- <div ng-if="MnCtrl.startmessage">
-            <div vc-recaptcha
-            key="'---- YOUR PUBLIC KEY GOES HERE ----'">
-            </div>
-        </div> -->
-        <button class="contacts__buttons" ng-if="MnCtrl.startmessage" ng-click="MnCtrl.sendmessage()">Send</button>
-        <button class="contacts__buttons" ng-if="MnCtrl.startmessage" ng-click="MnCtrl.startmessage=false">cancel</button>
-    </div>
-    You can reach me with the following information:<br>
-    Phone: {{MnCtrl.listed_phone_number}} <br>
-    Email: {{MnCtrl.listed_email}}
 </div>

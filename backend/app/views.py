@@ -5,9 +5,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import list_route, detail_route
 from rest_framework import status
 from app.serializers import UserSerializer, HomeSerializer, FavoritesSerializer, ExtraImageSerializer, \
-    EmailSerializer, ContactInfoSerializer
+    EmailSerializer, ContactInfoSerializer, PasswordResetSerializer
 from rest_framework.response import Response
 from django.db.models import Q
+from rest_framework import serializers
 
 
 class UserViewSet(viewsets.ModelViewSet):
@@ -30,7 +31,7 @@ class UserViewSet(viewsets.ModelViewSet):
             return Response({'error': 'Not logged in!'}, status=status.HTTP_401_UNAUTHORIZED)
 
     @list_route(methods=['GET'])
-    def check_if_exists(self, instance):
+    def check_if_user_exists(self, instance):
         params = self.request.query_params
         username = params['q']
         if len(UserModel.objects.filter(username=username)) > 0:
@@ -38,9 +39,48 @@ class UserViewSet(viewsets.ModelViewSet):
         else:
             return Response("Username is available!")
 
+    @list_route(methods=['GET'])
+    def check_if_email_exists(self, instance):
+        params = self.request.query_params
+        email = params['q']
+        if len(UserModel.objects.filter(email=email)) > 0:
+            return Response("Email already in use!")
+        else:
+            return Response("Email is available!")
+
+
+class PasswordResetViewSet(viewsets.ViewSet):
+    serializer_class = EmailSerializer
+    permission_classes = []
+
+    def create(self, request, *args, **kwargs):
+        serializer = PasswordResetSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @list_route(methods=['POST'])
+    def confirm_reset(self, request):
+        token = request.data['temptoken']['id']
+        password = request.data['password']
+        user = UserModel.objects.get(temp_token=token)
+        print('temp token', token)
+        print('user of token', user)
+        if len(UserModel.objects.filter(temp_token=token)) > 0:
+            if len(password) > 8:
+                user.set_password(password)
+                user.temp_token = ''
+                user.save()
+                return Response('Password updated')
+            else:
+                return Response('Invalid Password', status=status.HTTP_400_BAD_REQUEST)
+        else:
+            return Response('Password reset email has expired or token is invalid. Please try again.')
+
 
 class EmailViewSet(viewsets.ViewSet):
     serializer_class = EmailSerializer
+    permission_classes = []
 
     def create(self, request, *args, **kwargs):
         serializer = EmailSerializer(data=request.data)

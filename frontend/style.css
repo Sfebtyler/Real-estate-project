@@ -2,6 +2,11 @@ html {
     position: relative;
 }
 
+body {
+}
+
+img { max-width: 100%; }
+
 .header {
     position: fixed;
     top: 0;
@@ -28,6 +33,36 @@ html {
        url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff2") format('woff2'),
        url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff") format('woff'),
        url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ttf") format('truetype');
+}
+
+.material_icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    justify-content: flex-end;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.page__closeicon {
+    color: red;
 }
 
 .favorite_unfavoriteicons {
@@ -95,12 +130,17 @@ html {
     font-feature-settings: 'liga';
 }
 
+.page__searchpageiconalignments {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
 .page__searchcompleteicon {
     font-family: 'Material Icons';
     font-weight: normal;
     font-style: normal;
     font-size: 50px;  /* Preferred icon size */
-    align-self: flex-end;
     display: inline-block;
     line-height: 1;
     text-transform: none;
@@ -109,6 +149,32 @@ html {
     white-space: nowrap;
     direction: ltr;
     color: black;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.page__searchcloseicon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: red;
 
     /* Support for all WebKit browsers. */
     -webkit-font-smoothing: antialiased;
@@ -218,14 +284,34 @@ html {
     left: 10%;
     height: 100%;
     background-color: #E8EAF6;
-    padding-bottom: 100px;
+    padding-bottom: 60px;
+}
+
+.maindiv__hompage {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 100%;
+    background-color: #E8EAF6;
+    padding-bottom: 30px;
 }
 
 .home__premium_homes {
     overflow: auto;
     position:relative;
     margin-left: 15px;
-    top: 80px;
+    top: 20px;
+    display: flex;
+    display:-webkit-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.home__other_homes {
+    overflow: auto;
+    position:relative;
+    margin-left: 15px;
+    top: 55px;
     display: flex;
     display:-webkit-flex;
     flex-direction: row;
@@ -235,7 +321,6 @@ html {
 .home__landingwrapper {
     position: relative;
     height: 33vw;
-    width: 100vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -244,7 +329,6 @@ html {
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center center;
-
 }
 
 .home__landingimg {
@@ -567,24 +651,45 @@ html {
 }
 
 .contacts {
-    position: relative;
-    height: 400px;
     width: 80%;
-    left: 10%;
-    background-color: #C5CAE9;
+    margin: 80px auto 0;
+    padding-top: 62px;
+    background-color: #E8EAF6;
     padding-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,.4);
 }
 
-.contacts__buttons {
+.contacts__wrapper {
+    margin: 10px;
+}
 
+.contacts__company_image_wrapper {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contacts__company_image {
+    height: 35vw;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+    border-radius: 2px;
+}
+
+.contacts__inputs {
+    margin-bottom: 5px;
 }
 
 .contacts__message {
-    position: relative;
-    margin-top: 5px;
     background-color: #F5F5DC;
-    width: 60%;
+    width: 70vw;
     height: 200px;
+}
+
+.contacts__contactinfo {
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 

@@ -23,8 +23,11 @@ angular.module('routes',['ngRoute'])
     .when('/passwordresetrequest', {
         templateUrl: 'templates/pages/logincreate/passwordresetrequest.html'
     })
-    .when('/passwordreset', {
+    .when('/passwordreset/:id', {
         templateUrl: 'templates/pages/logincreate/passwordreset.html'
+    })
+    .when('/profile', {
+        templateUrl: 'templates/pages/logincreate/profile.html'
     })
     .when('/', {
     redirectTo: '/home'

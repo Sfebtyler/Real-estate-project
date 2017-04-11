@@ -10,7 +10,7 @@ from django.utils import timezone
 
 class UserModel(AbstractBaseUser, PermissionsMixin):
     username = models.CharField(max_length=50, unique=True)
-    email = models.EmailField(blank=False)
+    email = models.EmailField(blank=False, unique=True)
     first_name = models.CharField(max_length=100, null=True)
     last_name = models.CharField(max_length=100, null=True)
     phone = models.CharField(max_length=20)
@@ -19,6 +19,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     is_admin = models.BooleanField(default=False)
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_active = models.BooleanField(default=True)
+    temp_token = models.CharField(default='', max_length=100)
 
     REQUIRED_FIELDS = ['email']
     USERNAME_FIELD = 'username'
@@ -83,9 +84,11 @@ class Favorites(models.Model):
 
 
 class ContactInfo(models.Model):
+    image = models.ImageField(upload_to='images', null=True, blank=True)
     listed_agent_name = models.CharField(max_length=20)
     listed_email = models.EmailField()
     listed_phone_number = models.CharField(max_length=20)
+    company_info = models.TextField(max_length=10000, blank=True)
 
     class Meta:
         verbose_name_plural = 'Contact Info'

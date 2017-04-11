@@ -30,6 +30,7 @@ app.controller('MainController', function(user, home, $window, $scope, $location
     vm.detailhouseid = '';
     vm.login_clicked = false;
     vm.existingsearchparams = false;
+    vm.passwordresetsendtoemail = '';
 
 
     vm.scroll = function() {
@@ -105,6 +106,10 @@ app.controller('MainController', function(user, home, $window, $scope, $location
             }
     };
 
+    vm.scrollToBottom = function () {
+            window.scrollTo(0,document.body.scrollHeight);
+    };
+
     vm.setemailparams = function () {
         if (vm.current_user) {
             vm.guestname = vm.current_user.username;
@@ -140,9 +145,11 @@ app.controller('MainController', function(user, home, $window, $scope, $location
     vm.getContactInfoOnPageLoad = function () {
             user.getContactInfo()
             .then(function (response) {
+                vm.company_image = response.image;
                 vm.listed_agent_name = response.listed_agent_name;
                 vm.listed_phone_number = response.listed_phone_number;
                 vm.listed_email = response.listed_email;
+                vm.company_info = response.company_info;
             });
     };
 
@@ -288,12 +295,16 @@ app.controller('MainController', function(user, home, $window, $scope, $location
             vm.usernametooshort = false;
         }
         if(vm.createpassword == vm.createconfirmpassword && vm.createpassword.length >= 8 &&
-            vm.createusername.length > 3) {
+            vm.createusername.length > 3 && vm.emailavailable) {
             vm.createusername = vm.createusername.toLowerCase();
-            vm.user.createlogin(vm.createusername, vm.createemail, vm.createpassword, vm.createphone)
+            vm.user.createlogin(vm.createusername, vm.createfirstname, vm.createlastname,
+                                vm.createemail, vm.createpassword, vm.createphone)
             .then(function() {
                 vm.user.login(vm.createusername, vm.createpassword)
                 .then(function(response) {
+                    vm.createusername = '';
+                    vm.createemail = '';
+                    vm.createphone = '';
                     vm.getCurrentUser();
                     vm.reroute('/home');
                 });
@@ -302,6 +313,23 @@ app.controller('MainController', function(user, home, $window, $scope, $location
             else {
                 return;
             }
+    };
+
+    vm.updateprofile = function () {
+        vm.user.updateprofile(vm.createfirstname, vm.createlastname, vm.createemail, vm.createphone, vm.current_user.id)
+        .then(function (response) {
+            vm.createfirstname = '';
+            vm.createlastname = '';
+            vm.createemail = '';
+            vm.createphone = '';
+            console.log('profile update successful');
+            vm.getCurrentUser();
+            vm.editfirstname = false;
+            vm.editlastname = false;
+            vm.editprofile = false;
+            vm.editphone = false;
+            vm.editemail = false;
+        });
     };
 
     vm.usernameremovespaces = function (string) {
@@ -339,6 +367,39 @@ app.controller('MainController', function(user, home, $window, $scope, $location
                 });
             }
         }
+    };
+
+    vm.checkifuniqueemail = function () {
+        if (vm.createemail.length < 4) {
+            vm.emailavailable = false;
+            vm.error = "";
+        }
+
+        if (vm.createemail.length >= 4) {
+            vm.user.checkifuniqueemail(vm.createemail.toLowerCase())
+            .then(function (response) {
+                if(response.data == "Email already in use!") {
+                    vm.error = response.data;
+                    vm.emailavailable = false;
+                    vm.emailunavailable = true;
+                }
+                else {
+                    vm.emailavailable = true;
+                    vm.emailunavailable = false;
+                }
+            });
+        }
+    };
+
+    vm.sendpasswordresetrequest = function () {
+        vm.user.sendpasswordresetrequest(vm.passwordresetsendtoemail);
+    };
+
+    vm.updatePassword = function () {
+        vm.user.updatePassword($routeParams, vm.createpassword)
+        .then(function(response) {
+            vm.updatePasswordMessage = response;
+        });
     };
 
     // will need to be on the main controller
@@ -380,8 +441,13 @@ app.controller('MainController', function(user, home, $window, $scope, $location
                 response.results.forEach(function (house) {
                     house.price = house.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
                 });
-                vm.favoriteslist.results = vm.favoriteslist.concat(response.results);
-                vm.favoriteslist.response = response;
+                if (response.results.length < 1) {
+                    vm.favoriteslist.results = false;
+                }
+                else {
+                    vm.favoriteslist.results = vm.favoriteslist.concat(response.results);
+                    vm.favoriteslist.response = response;
+                }
             });
         }
     };

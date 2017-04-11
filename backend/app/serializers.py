@@ -1,6 +1,7 @@
 from django.core.mail import send_mail
 from app.models import Home, Favorites, ExtraImage, ContactInfo, EmailSettings, UserModel
 from rest_framework import serializers
+import uuid
 
 
 class FavoritesSerializer(serializers.ModelSerializer):
@@ -13,7 +14,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserModel
-        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'phone')
+        fields = ('id', 'username', 'first_name', 'last_name', 'email', 'phone', 'temp_token')
 
     def create(self, validated_data):
         password = self.context['request'].data['password']
@@ -54,7 +55,7 @@ class HomeSerializer(serializers.HyperlinkedModelSerializer):
 class ContactInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = ContactInfo
-        fields = ('listed_agent_name', 'listed_phone_number', 'listed_email')
+        fields = ('image', 'listed_agent_name', 'listed_phone_number', 'listed_email', 'company_info')
 
 
 class EmailSettingsSerializer(serializers.ModelSerializer):
@@ -95,3 +96,31 @@ class EmailSerializer(serializers.Serializer):
             fail_silently=True,
         )
         return Contact(**validated_data)
+
+
+class PasswordResetSerializer(serializers.Serializer):
+    def update(self, instance, validated_data):
+        pass
+
+    to_email = serializers.EmailField()
+
+    def create(self, validated_data):
+        print(UserModel.objects.get(email=validated_data['to_email']))
+        # creating temporary token
+        UserModel.objects.filter(email=validated_data['to_email']).update(temp_token=uuid.uuid4().hex)
+        # token that is being sent through email
+        token = UserModel.objects.get(email=validated_data['to_email']).temp_token
+        emailsubject = 'Password Reset for SGRealty.com'
+        message = 'please click the following link in order to reset your password http://localhost:3000/passwordreset/'\
+                  + token
+        from_email = EmailSettings.objects.first().from_email
+        send_to_email = [validated_data['to_email']]
+
+        send_mail(
+            emailsubject,
+            message,
+            from_email,
+            send_to_email,
+            fail_silently=True,
+        )
+        return 'password reset email sent!'

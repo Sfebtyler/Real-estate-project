@@ -1,5 +1,5 @@
 <div class="maindiv" ng-init="MnCtrl.getFavorites()">
-    <div class="home__premium_homes">
+    <div class="home__other_homes">
         <div class="home__houselisting" ng-repeat="home in MnCtrl.favoriteslist.results">
             <div ng-click="MnCtrl.detailhouseid=home.id; MnCtrl.opendetailspage=true">
                 <div class="home__imageholder">
@@ -20,7 +20,7 @@
         </div>
     </div>
 
-    <div class="home__nohomemessagediv" ng-if="!MnCtrl.favoriteslist.results">
+    <div class="home__nohomemessagediv" ng-if="MnCtrl.favoriteslist.results==false">
         <p class="home__nohomemessage">No favorites</p>
     </div>
 </div>

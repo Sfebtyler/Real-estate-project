@@ -21,8 +21,8 @@
         <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
         <meta name="theme-color" content="#ffffff">
 
-        <link rel="stylesheet" type="text/css" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" type="text/css" href="style.css" />
+        <link rel="stylesheet" type="text/css" href="/./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="/style.css" />
         <base href="/">
     </head>
     <body ng-controller="MainController as MnCtrl">
@@ -60,7 +60,7 @@
 
             </div>
             <div class="page__logininfo" ng-if="MnCtrl.current_user">
-                <div class="page__usergreeting">Welcome back {{MnCtrl.current_user.username}}!</div>
+                <div class="page__usergreeting">Welcome back <a ng-click="MnCtrl.reroute('/profile')" style="color:lightblue;">{{MnCtrl.current_user.username}}</a>!</div>
                 <div class="page__menubuttons" ng-click="MnCtrl.logout()">Log Out</div>
             </div>
         </div>
@@ -107,7 +107,14 @@
                     <option value="1500000">1,500,000</option>
                     <option value="2000000">2,000,000</option>
                 </select></label>
-                <i class="page__searchcompleteicon" ng-click="MnCtrl.search();">forward</i>
+                <div class="page__searchpageiconalignments">
+                    <a class="page__closeicon">
+                        <i class="page__searchcloseicon" ng-click="MnCtrl.opensearch=false;">close</i>
+                    </a>
+                    <a>
+                        <i class="page__searchcompleteicon" ng-click="MnCtrl.search();">forward</i>
+                    </a>
+                </div>
             </div>
         </div>
         <div class="housedetail__wrapper"
@@ -162,7 +169,7 @@
         <div class="view" style='clear: both;' infinite-scroll="MnCtrl.scroll()" infinite-scroll-distance='0.2'>
             <div class="page" ng-init="MnCtrl.isAuthenticated()">
                 </div>
-                <div ng-view style="padding-top: 48px;">
+                <div ng-view style="padding-top: 10px;">
                 </div>
                 </div>
             </div>
