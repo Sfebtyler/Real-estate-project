@@ -111,7 +111,7 @@ class PasswordResetSerializer(serializers.Serializer):
         # token that is being sent through email
         token = UserModel.objects.get(email=validated_data['to_email']).temp_token
         emailsubject = 'Password Reset for SGRealty.com'
-        message = 'please click the following link in order to reset your password http://localhost:3000/passwordreset/'\
+        message = 'Please click the following link in order to reset your password http://localhost:3000/passwordreset/'\
                   + token
         from_email = EmailSettings.objects.first().from_email
         send_to_email = [validated_data['to_email']]
@@ -123,4 +123,4 @@ class PasswordResetSerializer(serializers.Serializer):
             send_to_email,
             fail_silently=True,
         )
-        return 'password reset email sent!'
+        return 'Password reset email sent!'

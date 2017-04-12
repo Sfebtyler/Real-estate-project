@@ -104,7 +104,7 @@ class EmailSettings(models.Model):
     to_email = models.EmailField(null=True)
 
     class Meta:
-        verbose_name_plural = 'Email Settings'
+        verbose_name_plural = 'Lead Email Settings'
 
     def save(self, *args, **kwargs):
         EmailSettings.objects.all().delete()
