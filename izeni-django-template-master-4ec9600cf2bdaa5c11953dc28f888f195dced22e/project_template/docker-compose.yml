@@ -1,0 +1,17 @@
+database:
+  image: postgres
+  environment:
+    - POSTGRES_USER={{ project_name }}
+    - POSTGRES_PASSWORD={{ project_name }}
+backend:
+  build: .
+  command: bash /{{ project_name }}/server/django_devserver.sh
+  volumes:
+  - .:/{{ project_name }}
+  links:
+  - database
+  ports:
+  - "8000:8000"
+  environment:
+    DB_HOST: database
+    PYTHONUNBUFFERED: 1

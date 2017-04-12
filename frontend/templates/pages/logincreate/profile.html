@@ -1,0 +1,66 @@
+<form class="logincreatepage">
+    <div class="profile" ng-if="!MnCtrl.editprofile">
+        <div>Username: {{MnCtrl.current_user.username}}
+        </div>
+        <div>First Name: {{MnCtrl.current_user.first_name}}
+            <i class="material_icons" style="font-size: 30px;" ng-click="MnCtrl.editemail=false;
+                MnCtrl.editfirstname=true;
+                MnCtrl.editlastname=false;
+                MnCtrl.editphone=false;
+                MnCtrl.editprofile=true">mode edit</i>
+        </div>
+        <div>Last Name: {{MnCtrl.current_user.last_name}}
+            <i class="material_icons" style="font-size: 30px;" ng-click="MnCtrl.editemail=false;
+                MnCtrl.editfirstname=false;
+                MnCtrl.editlastname=true;
+                MnCtrl.editphone=false;
+                MnCtrl.editprofile=true">mode edit</i>
+        </div>
+        <div>Email: {{MnCtrl.current_user.email}}
+            <i class="material_icons" style="font-size: 30px;" ng-click="MnCtrl.editemail=true;
+                MnCtrl.editfirstname=false;
+                MnCtrl.editphone=false;
+                MnCtrl.editprofile=true">mode edit</i>
+        </div>
+        <div>Phone Number: {{MnCtrl.current_user.phone}}
+            <i class="material_icons" style="font-size: 30px;" ng-click="MnCtrl.editphone=true;
+                MnCtrl.editfirstname=false;
+                MnCtrl.editemail=false;
+                MnCtrl.editprofile=true">mode edit</i>
+        </div>
+    </div>
+
+    <div class="logincreatepage__container">
+        <div class="logincreatepage__error" style="color:red;"
+            ng-if="MnCtrl.usernameunavailable && MnCtrl.error!='Email already in use!'">{{MnCtrl.error}}
+        </div>
+        <div ng-if="MnCtrl.usernametooshort"
+            style="color:red;">Username must be at least 4 characters long!
+        </div>
+        <label ng-if="MnCtrl.editfirstname">First Name: <input class="logincreatepage__inputs" ng-model="MnCtrl.createfirstname"></label>
+        <label ng-if="MnCtrl.editlastname">Last Name: <input class="logincreatepage__inputs" ng-model="MnCtrl.createlastname"></label>
+        <label ng-if="MnCtrl.editemail">Email: <input class="logincreatepage__inputs" ng-model="MnCtrl.createemail"
+            ng-change="MnCtrl.checkifuniqueemail()"
+            ng-model-options="{ debounce: 500 }">
+            <i class="logincreatepage__usernameavailableicon" style="color:green;"
+                ng-if="MnCtrl.emailavailable">check
+            </i>
+        </label>
+        <div class="logincreatepage__error" ng-if="MnCtrl.emailunavailable && MnCtrl.error!='Username already in use!'" style="color:red;">{{MnCtrl.error}}
+        </div>
+        <label ng-if="MnCtrl.editphone">Phone: <input class="logincreatepage__inputs" ng-model="MnCtrl.createphone"></label>
+        <div class="logincreatepage__error" style="color:red;"
+            ng-if="MnCtrl.error!='Username is available!' && MnCtrl.error!='Username already in use!'
+            && MnCtrl.error!='Email already in use!'">
+            {{MnCtrl.error}}
+        </div>
+        <div class="" style="text-align: center;" ng-if="MnCtrl.editprofile">
+            <i class="page__searchcompleteicon" ng-click="MnCtrl.updateprofile()">forward</i>
+            <i class="material_icons" style="font-size: 50px; color:red;" ng-click="MnCtrl.editprofile=false;
+                MnCtrl.createemail='';
+                MnCtrl.editphone=false;
+                MnCtrl.editemail=false;
+                MnCtrl.createphone='';">close</i>
+        </div>
+    </div>
+</form>

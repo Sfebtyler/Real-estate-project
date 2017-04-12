@@ -1,0 +1,15 @@
+database:
+  image: postgres
+  environment:
+    - POSTGRES_USER=izeni_django
+    - POSTGRES_PASSWORD=izeni_django
+backend:
+  build: .
+  command: bash /izeni_django/server/django_devserver.sh
+  links:
+  - database
+  ports:
+  - "8000:8000"
+  environment:
+    DB_HOST: database
+    PYTHONUNBUFFERED: 1
