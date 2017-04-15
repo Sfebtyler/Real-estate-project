@@ -60,7 +60,7 @@
 
             </div>
             <div class="page__logininfo" ng-if="MnCtrl.current_user">
-                <div class="page__usergreeting">Welcome back <a ng-click="MnCtrl.reroute('/profile')" style="color:lightblue;">{{MnCtrl.current_user.username}}</a>!</div>
+                <div class="page__usergreeting">Welcome back <a ng-click="MnCtrl.reroute('/profile')" style="color:lightblue; cursor:pointer;">{{MnCtrl.current_user.username}}</a>!</div>
                 <div class="page__menubuttons" ng-click="MnCtrl.logout()">Log Out</div>
             </div>
         </div>

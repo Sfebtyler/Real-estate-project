@@ -1,32 +1,46 @@
 <form class="logincreatepage">
     <div class="profile" ng-if="!MnCtrl.editprofile">
-        <div>Username: {{MnCtrl.current_user.username}}
+        <b>Username: {{MnCtrl.current_user.username}}
+        </b>
+        <div>
+            <label>
+                First Name: {{MnCtrl.current_user.first_name}}
+                <i class="material_icons" style="font-size: 15px;" ng-click="MnCtrl.editemail=false;
+                    MnCtrl.editfirstname=true;
+                    MnCtrl.editlastname=false;
+                    MnCtrl.editphone=false;
+                    MnCtrl.editprofile=true">mode edit</i>
+            </label>
         </div>
-        <div>First Name: {{MnCtrl.current_user.first_name}}
-            <i class="material_icons" style="font-size: 30px;" ng-click="MnCtrl.editemail=false;
-                MnCtrl.editfirstname=true;
-                MnCtrl.editlastname=false;
-                MnCtrl.editphone=false;
-                MnCtrl.editprofile=true">mode edit</i>
+        <div>
+            <label>
+                Last Name: {{MnCtrl.current_user.last_name}}
+                <i class="material_icons" style="font-size: 15px;" ng-click="MnCtrl.editemail=false;
+                    MnCtrl.editfirstname=false;
+                    MnCtrl.editlastname=true;
+                    MnCtrl.editphone=false;
+                    MnCtrl.editprofile=true">mode edit</i>
+            </label>
         </div>
-        <div>Last Name: {{MnCtrl.current_user.last_name}}
-            <i class="material_icons" style="font-size: 30px;" ng-click="MnCtrl.editemail=false;
-                MnCtrl.editfirstname=false;
-                MnCtrl.editlastname=true;
-                MnCtrl.editphone=false;
-                MnCtrl.editprofile=true">mode edit</i>
+        <div>
+            <label>
+                Email: {{MnCtrl.current_user.email}}
+                <i class="material_icons" style="font-size: 15px; right: 0px;" ng-click="MnCtrl.editemail=true;
+                    MnCtrl.editfirstname=false;
+                    MnCtrl.editlastname=false;
+                    MnCtrl.editphone=false;
+                    MnCtrl.editprofile=true">mode edit</i>
+            </label>
         </div>
-        <div>Email: {{MnCtrl.current_user.email}}
-            <i class="material_icons" style="font-size: 30px;" ng-click="MnCtrl.editemail=true;
-                MnCtrl.editfirstname=false;
-                MnCtrl.editphone=false;
-                MnCtrl.editprofile=true">mode edit</i>
-        </div>
-        <div>Phone Number: {{MnCtrl.current_user.phone}}
-            <i class="material_icons" style="font-size: 30px;" ng-click="MnCtrl.editphone=true;
-                MnCtrl.editfirstname=false;
-                MnCtrl.editemail=false;
-                MnCtrl.editprofile=true">mode edit</i>
+        <div>
+            <label>
+            Phone Number: {{MnCtrl.current_user.phone}}
+                <i class="material_icons" style="font-size: 15px; right: 0px;" ng-click="MnCtrl.editphone=true;
+                    MnCtrl.editfirstname=false;
+                    MnCtrl.editlastname=false;
+                    MnCtrl.editemail=false;
+                    MnCtrl.editprofile=true">mode edit</i>
+            </label>
         </div>
     </div>
 
@@ -58,6 +72,8 @@
             <i class="page__searchcompleteicon" ng-click="MnCtrl.updateprofile()">forward</i>
             <i class="material_icons" style="font-size: 50px; color:red;" ng-click="MnCtrl.editprofile=false;
                 MnCtrl.createemail='';
+                MnCtrl.editfirstname=false;
+                MnCtrl.editlastname=false;
                 MnCtrl.editphone=false;
                 MnCtrl.editemail=false;
                 MnCtrl.createphone='';">close</i>
