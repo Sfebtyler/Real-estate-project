@@ -1,4 +1,5 @@
 <div class="maindiv" ng-init="MnCtrl.getFavorites()">
+    <title>Your Favorites</title>
     <div class="home__other_homes">
         <div class="home__houselisting" ng-repeat="home in MnCtrl.favoriteslist.results">
             <div ng-click="MnCtrl.detailhouseid=home.id; MnCtrl.opendetailspage=true">

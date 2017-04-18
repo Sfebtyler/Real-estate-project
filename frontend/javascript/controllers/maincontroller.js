@@ -259,10 +259,11 @@ app.controller('MainController', function(user, home, $window, $scope, $location
 
     // will need to be on the main controller
     vm.logout = function () {
+            var currpath = $location.path();
             vm.user.logout();
             vm.current_user = false;
             vm.login_clicked = false;
-            if ($location.path() == '/favorites') {
+            if (currpath == '/favorites' || currpath == '/profile') {
                 vm.reroute('/home');
             }
     };
@@ -330,6 +331,16 @@ app.controller('MainController', function(user, home, $window, $scope, $location
             vm.editphone = false;
             vm.editemail = false;
         });
+    };
+
+    vm.profile_check_if_logged_in = function () {
+        var currpath = $location.path();
+        if(!vm.current_user) {
+            vm.reroute('/home');
+        }
+        else {
+            return;
+        }
     };
 
     vm.usernameremovespaces = function (string) {

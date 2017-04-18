@@ -2,6 +2,11 @@
 <html ng-app="realestate">
     <head>
         <meta charset="utf-8">
+        <meta name="description" content="Find affordable homes in the St. George area!">
+        <meta name="keywords" content="home, homes, st george, st. george, stgeorge, st.george,
+            washington, hurricane, bloomington, santa clara, santaclara, ut, utah, sgrealty,
+            sg realty, s g realty, scott, tyler, scott tyler, scotttyler, scott taylor, scotttaylor,
+            real estate, realestate, realty">
 
         <link rel="apple-touch-icon" sizes="57x57" href="/favicons/apple-icon-57x57.png">
         <link rel="apple-touch-icon" sizes="60x60" href="/favicons/apple-icon-60x60.png">
@@ -26,6 +31,7 @@
         <base href="/">
     </head>
     <body ng-controller="MainController as MnCtrl">
+
         <div class="header">
             <img class="logo" src="./nav-logo.png" ng-click="MnCtrl.reroute('/home')"></img>
             <div class="page__menubuttons" ng-click="MnCtrl.reroute('/home')"><span
@@ -60,7 +66,7 @@
 
             </div>
             <div class="page__logininfo" ng-if="MnCtrl.current_user">
-                <div class="page__usergreeting">Welcome back <a ng-click="MnCtrl.reroute('/profile')" style="color:lightblue; cursor:pointer;">{{MnCtrl.current_user.username}}</a>!</div>
+                <div class="page__usergreeting">Welcome back <a ng-click="MnCtrl.reroute('/profile')" style="color:lightblue; cursor:pointer;">{{MnCtrl.current_user.first_name}}</a>!</div>
                 <div class="page__menubuttons" ng-click="MnCtrl.logout()">Log Out</div>
             </div>
         </div>
