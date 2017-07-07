@@ -1,0 +1,50 @@
+{% extends "../main_page/base_page.html" %}
+{% block content %}
+
+<div class="maindiv__all_homes_page">
+                    <div class="maindiv__all_homes_page">
+                        {% for home in homes %}
+                        <div class="home__premium_homes">
+                            <div class="home__houselisting">
+                                <div ng-click="MnCtrl.detailhouseid=home.id; MnCtrl.opendetailspage=true;">
+                                    <div class="home__imageholder">
+                                        <img class="home__houseimage" src="/images/{{home.image}}" />
+                                        {% if home.sold == True %}
+                                        <img class="home__redline" src="/static/redline.png" ng-if=home.sold/>
+                                        {% endif %}
+                                    </div>
+                                    <div class="home__housetitle">{{home.title}}</div>
+                                    <div class="home__housestreet">{{home.street}}</div>
+                                    <div class="home__housecity">{{home.city}}, {{home.state}}</div>
+                                    <div class="home__housedescription">{{home.description}}</div>
+                                    {% if home.sold == False %}
+                                    <div class="home__houseprice" ng-show=!{{home.sold}}>${{home.price}}</div>
+                                    {% else %}
+                                    <div class="home__housesold" ng-show={{home.sold}}>Sold</div>
+                                    {% endif %}
+                                </div>
+                                {% if not home.is_favorite %}
+                                <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && !home.is_favorite"
+                                   ng-click="MnCtrl.favorite(home.id, MnCtrl.current_user.id); home.is_favorite=true">
+                                    favorite_border
+                                </i>
+                                {% else %}
+                                <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && home.is_favorite"
+                                   ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user.id); home.is_favorite=false">
+                                    favorite
+                                </i>
+                                {% endif %}
+                            </div>
+                        </div>
+                        {% endfor %}
+
+                        {% if not homes %}
+                        <div class="home__nohomemessagediv">
+                            <p class="home__nohomemessage">No Homes Found</p>
+                        </div>
+                        {% endif %}
+                    </div>
+
+        </div>
+
+{% endblock %}

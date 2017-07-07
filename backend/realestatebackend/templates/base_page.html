@@ -1,0 +1,152 @@
+<!doctype html>
+<html ng-app="realestate">
+    <head>
+        {% load static %}
+        <meta charset="utf-8">
+        <meta name="description" content="Find affordable homes in the St. George area!">
+        <meta name="keywords" content="home, homes, st. george, washington, hurricane, bloomington,
+            santa clara, ut, utah, sg realty, scott tyler, real estate, realestate, realty">
+
+        <link rel="apple-touch-icon" sizes="57x57" href="/static/favicons/apple-icon-57x57.png">
+        <link rel="apple-touch-icon" sizes="60x60" href="/static/favicons/apple-icon-60x60.png">
+        <link rel="apple-touch-icon" sizes="72x72" href="/static/favicons/apple-icon-72x72.png">
+        <link rel="apple-touch-icon" sizes="76x76" href="/static/favicons/apple-icon-76x76.png">
+        <link rel="apple-touch-icon" sizes="114x114" href="/static/favicons/apple-icon-114x114.png">
+        <link rel="apple-touch-icon" sizes="120x120" href="/static/favicons/apple-icon-120x120.png">
+        <link rel="apple-touch-icon" sizes="144x144" href="/static/favicons/apple-icon-144x144.png">
+        <link rel="apple-touch-icon" sizes="152x152" href="/static/favicons/apple-icon-152x152.png">
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/favicons/apple-icon-180x180.png">
+        <link rel="icon" type="image/png" sizes="192x192"  href="/static/favicons/android-icon-192x192.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="96x96" href="/static/favicons/favicon-96x96.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/favicons/favicon-16x16.png">
+        <link rel="manifest" href="/static/manifest.json">
+        <meta name="msapplication-TileColor" content="#ffffff">
+        <meta name="msapplication-TileImage" content="/static/ms-icon-144x144.png">
+        <meta name="theme-color" content="#ffffff">
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="/./static/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" type="text/css" href="{% static '/style.css' %}" />
+        <link rel="stylesheet" type="text/javascript" href="{% static '/main_page.js' %}" />
+        <base href="/">
+    </head>
+    <body>
+        <div class="header">
+            <a href="{% url 'mainpage' %}" class="logo"><img src="/./static/nav-logo.png"/></a>
+            <a href="{% url 'mainpage' %}" class="page__menubuttons">
+                <p class="header__span" style="color:white;">Main</p>
+            </a>
+            <a href="{% url 'homes' %}" class="page__menubuttons">
+                <p class="header__span" style="color:white;">Homes</p>
+            </a>
+            <a href="{% url 'favorites' %}" class="page__menubuttons">
+                <p class="header__span" style="color:white;">Favorites</p>
+            </a>
+            <a href="{% url 'contacts' %}" class="page__menubuttons">
+                <p class="header__span" style="color:white;">Contact Us</p>
+            </a>
+            <i class="page__searchicon" id="open_search">search</i>
+            <div class="page__requestlogin">
+                {% if user.is_authenticated %}
+                    <div style="color: white;">Welcome back {{ request.user }}!</div>
+                    <form method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <input id="logout_next" type="hidden" name="next">
+                        <button class="page__menubuttons" type="submit">Logout</button>
+                    </form>
+                {% endif %}
+                {% if not user.is_authenticated %}
+                <div class="page__menubuttons" id="open_login">Login</div>
+                <a href="{% url 'create-account' %}" class="page__menubuttons">
+                    <div class="header__span" style="color:white;">Create Account</div>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+        <div id="login_wrapper" style="display:none;">
+            <form id="login-form" method="post" action="{% url 'user_login' %}">
+                {% csrf_token %}
+                <div class="login__wrapper">
+                    <div class="page__login">
+                        <div>Username: <input style="color: black;"
+                            id="username" name="username"></div>
+                        <div>Password: <input style="color: black;" type="password"
+                            id="password" name="password"></div>
+                        <button class="page__menubuttons" type="submit" value="Login">Login</button>
+                        <div class="page__menubuttons" id="close_login">Cancel</div>
+                        <div class="page__menubuttons">Forgot password</div>
+                    </div>
+                    <input id="login_next" type="hidden" name="next">
+                </div>
+
+            </form>
+
+            </div>
+
+
+            <div class="page__searchWrapper" id='search_modal'>
+                <form action="/search" method="get">
+                <div class="page__searchpage" id='modal'>
+                    <label> Search:<input name="q" id="q"/></label>
+                    <label class="page__searchfilters"> Bedrooms:<select name="totalbeds" id="totalbeds">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select></label>
+                    <label class="page__searchfilters"> Bathrooms:<select name="totalbaths" id="totalbaths">
+                        <option value=""></option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                        <option value="6">6</option>
+                        <option value="7">7</option>
+                        <option value="8">8</option>
+                    </select></label>
+                    <label class="page__searchfilters"> Price range start:<select name="pricerangestart" id="pricerangestart">
+                        <option value=""></option>
+                        <option value="50000">50,000</option>
+                        <option value="100000">100,000</option>
+                        <option value="250000">250,000</option>
+                        <option value="500000">500,000</option>
+                        <option value="750000">750,000</option>
+                        <option value="1000000">1,000,000</option>
+                        <option value="1500000">1,500,000</option>
+                        <option value="2000000">2,000,000</option>
+                    </select></label>
+                    <label class="page__searchfilters"> Price range stop:<select name="pricerangestop" id="pricerangestop">
+                        <option value=""></option>
+                        <option value="50000">50,000</option>
+                        <option value="100000">100,000</option>
+                        <option value="250000">250,000</option>
+                        <option value="500000">500,000</option>
+                        <option value="750000">750,000</option>
+                        <option value="1000000">1,000,000</option>
+                        <option value="1500000">1,500,000</option>
+                        <option value="2000000">2,000,000</option>
+                    </select></label>
+                    <div class="page__searchpageiconalignments">
+                        <a class="page__closeicon">
+                            <i class="page__searchcloseicon" id="close_search">close</i>
+                        </a>
+                        <button class="page__search_complete_button">
+                            <i class="page__searchcompleteicon" type="submit">forward</i>
+                        </button>
+                    </div>
+                    </form>
+                </div>
+            </div>
+
+            {% block content %}{% endblock %}
+
+        <script type="text/javascript" src="{% static '/main.js' %}"></script>
+    </body>
+</html>

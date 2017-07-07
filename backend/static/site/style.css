@@ -1,0 +1,767 @@
+html {
+    height: 100%;
+    position: relative;
+}
+
+
+
+img { max-width: 100%; }
+
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 48px;
+    z-index: 999;
+    display: flex;
+    flex-direction: row;
+    background: #3F51B5;
+}
+
+.header__span {
+    align-self: center;
+}
+
+@font-face {
+  font-family: 'Material Icons';
+  font-style: normal;
+  font-weight: 400;
+  src: url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.eot"); /* For IE6-8 */
+  src: local('Material Icons'),
+       local('MaterialIcons-Regular'),
+       url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff2") format('woff2'),
+       url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.woff") format('woff'),
+       url("./node_modules/material-design-icons/iconfont/MaterialIcons-Regular.ttf") format('truetype');
+}
+
+.material_icons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    justify-content: flex-end;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+#favorite, #unfavorite {
+    background-color: white;
+    border: none;
+}
+
+#det_page__favorite, #det_page__unfavorite {
+    background-color: #E8EAF6;
+    border: none;
+}
+#E8EAF6
+
+.page__closeicon {
+    color: red;
+}
+
+.favorite_unfavoriteicons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: #F85441;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.favorite_unfavoriteicons::selection {
+  background: none; /* WebKit/Blink Browsers */
+}
+
+.page__searchicon::selection {
+  background: none; /* WebKit/Blink Browsers */
+}
+
+:focus {
+  outline: none;
+  border: 0;
+}
+
+.page__searchicon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: white;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.page__searchpageiconalignments {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.page__searchcompleteicon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: black;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.page__searchcloseicon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: red;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.page__searchpage {
+    z-index: 9999;
+    display: inline-block;;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0,0,0,.4);
+}
+.page__searchWrapper {
+    z-index: 9998;
+    position: fixed;
+    top: 0; bottom: 0;
+    right: 0; left: 0;
+    background: rgba(0,0,0,.3);
+    display: none;
+    justify-content: center;
+    align-items: center;
+}
+.page__searchWrapper label {
+    margin: 0;
+}
+
+.page__searchWrapper input {
+    border: none;
+    border-bottom: 1px solid gray!important;
+}
+
+.page__searchWrapper input:focus {
+    border-color:black!important;
+}
+
+.page__search_complete_button {
+    border: none;
+    background: white;
+}
+
+
+.page__background {
+    position: static;
+    /*background-image: url("background.jpeg");*/
+    background-size: 100% 100%;;
+    background-attachment: fixed;
+}
+
+.logo {
+    margin-left: 32px;
+    height: 35px;
+    width: 80px;
+    align-self: center;
+}
+
+.page__menubuttons {
+    width: 200px;
+    color: white;
+    background: #3F51B5;
+    font-size: 15px;
+    display: flex;
+    border: none;
+    justify-content: center;
+}
+
+.page__menubuttons:hover {
+    background: #5C6BC0;
+}
+
+.page__usergreeting {
+    word-wrap: normal;
+    color: white;
+    z-index: 1000;
+}
+
+.page__login {
+    display: inline-block;;
+    padding: 16px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #3F51B5;
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 4px rgba(0,0,0,.4);
+}
+
+.login__wrapper {
+    z-index: 9999;
+    position: fixed;
+    top: 0; bottom: 0;
+    right: 0; left: 0;
+    background: rgba(0,0,0,.3);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.page__searchtext {
+    color: white;
+}
+
+.page__searchfilters {
+    padding: 5px;
+}
+
+.maindiv {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 100%;
+    background-color: #E8EAF6;
+    padding-bottom: 60px;
+}
+
+.maindiv__homepage {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 100%;
+    background-color: #E8EAF6;
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.maindiv__detailspage {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 100%;
+    background-color: #E8EAF6;
+    padding-top: 48px;
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.maindiv__all_homes_page {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    height: 100%;
+    background-color: #E8EAF6;
+    padding-top: 28px;
+    padding-bottom: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.home__premium_homes {
+    overflow: auto;
+    position:relative;
+    margin-left: 15px;
+    top: 20px;
+    display: flex;
+    display:-webkit-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.home__other_homes {
+    overflow: auto;
+    position:relative;
+    margin-left: 15px;
+    top: 55px;
+    display: flex;
+    display:-webkit-flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.home__landingwrapper {
+    position: relative;
+    height: 33vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-image: url('/static/background.jpeg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+
+.home__landingimg {
+    width: 100%;
+}
+
+.home__searchpage {
+    background-color: rgba(255, 255, 255, 0.90);
+    border: 1px grey solid;
+    border-radius: 5px;
+}
+
+.home__searchbarwrapper {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    padding: 10px;
+}
+
+.home__searchbar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 5px;
+}
+
+.home__landingsearchcompleteicon {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    right: 0px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: black;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.home__landingtext {
+    color: white;
+    font-size: 35px;
+    padding-bottom: 20px;
+    text-shadow: 0 0 2px black;
+    text-align: center;
+}
+
+.home__houselisting {
+    padding: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    background-color: rgba(255, 255, 255, 0.50);
+    border-radius: 2%;
+    -webkit-box-shadow: 2px 3px 5px 3px rgba(0,0,0,0.25);
+    -moz-box-shadow: 2px 3px 5px 3px rgba(0,0,0,0.25);
+    box-shadow: 2px 3px 5px 3px rgba(0,0,0,0.25);
+}
+
+.home__houselisting a:hover {
+    text-decoration: none;
+}
+
+.home__houseref {
+    padding-bottom: 15px;
+    width: 100%;
+}
+.home__housestreet {
+    width: 100%;
+}
+.home__housecity {
+    width: 100%;
+}
+.home__housetitle {
+    width: 100%;
+}
+
+.home__houseimage {
+    position:relative;
+    height: 200px;
+    width: 217px;
+    bottom: 0px;
+}
+
+.home__housesold {
+    color: red;
+    font-weight: 800;
+    font-size: 300%;
+}
+
+.home__houseprice {
+    padding-top: 15px;
+    padding-bottom: 5px;
+    color: green;
+    font-weight: 200;
+    font-size: 200%;
+    width: 100%;
+}
+.home__favoriteIcon {
+    margin-left: auto;
+
+}
+
+.home__exitbutton {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 50px;  /* Preferred icon size */
+    right: 0px;
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: red;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.home__nohomemessagediv {
+    position: relative;
+    height: 100px;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.home__nohomemessage {
+    position: relative;
+    left: 100px;
+}
+
+.home__redline {
+    position: absolute;
+    bottom: 10px;
+    left: 5%;
+    height: 180px;
+    width: 200px;
+}
+
+.home__imageholder {
+    position: relative;
+    padding: 2px;
+    /*border: solid gray 1px;*/
+}
+
+.home__housedescription {
+    position: relative;
+    left: 5px;
+    top: 5px;
+    font-size: 20px;
+    padding-bottom: 5px;
+}
+
+.housedetail {
+    width: 800px;
+    padding: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+}
+
+.housedetail__houseimage {
+    max-width: 100%;
+    margin: 0 auto;
+    bottom: 0px;
+}
+
+.housedetail__addtofavorites {
+    position: relative;
+    right: 0px;
+    top: 0px;
+    background:url(./icons/ic_favorite_black_large.png) no-repeat;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
+}
+
+.housedetail__unfavorite {
+    position: relative;
+    right: 0px;
+    top: 0px;
+    background:url(./icons/ic_favorite_border_large.png) no-repeat;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    border: none;
+}
+
+
+.housedetail__extraimageswrapper {
+    margin-top: 20px;
+}
+
+.housedetail__extraimage {
+    height: 60%;
+    width: 60%;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    float: right;
+    clear: right;
+}
+
+.housedetail__extratext {
+
+}
+
+.housedetail__redline {
+    position: absolute;
+    bottom: 10px;
+    left: 7%;
+}
+
+.favorites {
+    position: relative;
+    width: 80%;
+    left: 10%;
+    background-color: #C5CAE9;
+    padding-bottom: 100px;
+}
+
+.logincreatepage {
+    width: 80%;
+    margin: 80px auto 0;
+    padding-top: 62px;
+    background-color: #E8EAF6;
+    padding-bottom: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,.4);
+}
+
+.logincreatepage__container {
+    width: 350px;
+}
+.logincreatepage__container label {
+        display: flex;
+        justify-content: flex-end;
+}
+
+.logincreatepage__error {
+    text-align: center;
+}
+
+.logincreatepage__inputs {
+    right: 0px;
+    margin-left: 5px;
+    border: 1px solid gray;
+}
+
+.logincreatepage__inputs:focus {
+    border: 1px solid white;
+}
+
+.logincreatepage__usernameavailableicon {
+    position:absolute;
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 20px;  /* Preferred icon size */
+    display: inline-block;
+    line-height: 1;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+    direction: ltr;
+    color: green;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+.contacts {
+    width: 80%;
+    margin: 80px auto 0;
+    padding-top: 62px;
+    background-color: #E8EAF6;
+    padding-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2px;
+    box-shadow: 0 0 2px rgba(0,0,0,.4);
+}
+
+.contacts__wrapper {
+    margin: 10px;
+}
+
+.contacts__company_image_wrapper {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.contacts__company_image {
+    height: 35vw;
+    box-shadow: 0 0 5px rgba(0,0,0,.5);
+    border-radius: 2px;
+}
+
+.contacts__inputs {
+    margin-bottom: 5px;
+}
+
+.contacts__message {
+    background-color: #F5F5DC;
+    width: 70vw;
+    height: 200px;
+}
+
+.contacts__contactinfo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+
+.profile__labels {
+    width: 100%;
+}
+
+.profile__editicons {
+    font-family: 'Material Icons';
+    font-weight: normal;
+    font-style: normal;
+    display: inline-block;
+    line-height: 1;
+    font-size: 15px;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap: normal;
+    white-space: nowrap;
+
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+img { max-width: 100%; }

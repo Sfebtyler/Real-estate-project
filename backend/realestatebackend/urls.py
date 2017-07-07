@@ -2,23 +2,23 @@ from django.conf.urls import url, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from rest_framework import routers
-from rest_framework.authtoken import views as authview
-
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from app import views
 
-router = routers.DefaultRouter()
-router.register(r'users', views.UserViewSet)
-router.register(r'homes', views.HomeViewSet)
-router.register(r'favorites', views.FavoritesViewSet)
-router.register(r'contact-us', views.EmailViewSet, 'contact-us')
-router.register(r'contacts', views.ContactInfoViewSet)
-router.register(r'password-reset', views.PasswordResetViewSet, 'password-reset')
-
 urlpatterns = [
-    url(r'^', include(router.urls)),
+
+    url(r'^$', views.PremiumHomeTemplateView.as_view(), name='mainpage'),
+    url(r'^homes/$', views.HomeTemplateView.as_view(), name='homes'),
+    url(r'^homes/(?P<id>[0-9]+)/$', views.HomeDetailsTemplateView.as_view(), name='details'),
+    url(r'^favorites/$', views.FavoritesHomeTemplateView.as_view(), name='favorites'),
+    url(r'^contacts/', views.ContactsTemplateView.as_view(), name='contacts'),
+    url(r'^search/', views.SearchHomesTemplateView.as_view(), name='search'),
     url(r'^admin/', admin.site.urls),
-    url(r'^api-token-auth/', authview.obtain_auth_token),
+    url(r'^user_login/', views.UserLogin.as_view(), name='user_login'),
+    url(r'^logout/$', views.UserLogout.as_view(), name='logout'),
+    url(r'^create-account/$', views.UserCreateTemplateView.as_view(), name='create-account'),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns += staticfiles_urlpatterns()

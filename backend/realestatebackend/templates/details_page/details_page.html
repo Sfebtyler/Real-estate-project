@@ -1,0 +1,68 @@
+{% extends "../base_page.html" %}
+            {% block content %}
+
+            <div class="maindiv__detailspage">
+                <div class="housedetail">
+                    <section style="display: flex; width: 100%; justify-content: space-between;">
+                        <div class="housedetail__primarydetailswrapper">
+
+                        <div class="home__houseref">
+                            MLS Number(s): {{details.mls_number}}
+
+                        </div>
+                        <div class="home__housetitle">{{details.title}}</div>
+                        <div class="home__housestreet">{{details.street}}</div>
+                        <div class="home__housecity">{{details.city}}, {{details.state}}</div>
+
+
+                        <div class="home__housedescription">{{details.description}}</div>
+                        <div class="home__houseprice" ng-if='!MnCtrl.listingdetail.sold'>${{details.price}}</div>
+                        {% if details.sold %}
+                            <div class="home__housesold">Sold</div>
+                        {% endif %}
+                    </div>
+
+                    <div>
+                        <form action="{% url 'favorites' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" class="next" name="next" value=''>
+                            <input type="hidden" id="homepk" name="homepk" value={{details.pk}}>
+                            {% if not details.is_favorite and user.is_authenticated %}
+                            <button id="det_page__favorite">
+                                <i class="favorite_unfavoriteicons">
+                                    favorite_border
+                                </i>
+                            </button>
+                            {% endif %}
+                            {% if details.is_favorite and user.is_authenticated %}
+                            <button id="det_page__unfavorite" type="submit" value="submit">
+                                <i class="favorite_unfavoriteicons">
+                                    favorite
+                                </i>
+                            </button>
+                            {% endif %}
+                        </form>
+
+                        <i class="home__exitbutton" ng-click="MnCtrl.opendetailspage=false">
+                            close
+                        </i>
+                    </div>
+                    </section>
+                    <div class="home__imageholder">
+                        <img class="housedetail__houseimage" src='/images/{{details.image}}'>
+                    </div>
+                    {% if details.extrainfo %}
+                    <div class="housedetail__extraimageswrapper">
+                        <img class="housedetail__extraimage" src=/images/{{details.extrainfo.additionalimage}}>
+                        <div class="housedetail__extratext">{{details.extrainfo.description}}</div>
+                    </div>
+                    {% endif %}
+                    <button ng-click="MnCtrl.reroute('/contacts'); MnCtrl.opendetailspage=false;
+                        MnCtrl.startmessage=true; MnCtrl.message='I would like to know more about home #' + MnCtrl.listingdetail.mls_number + '.'">
+                        Request more info
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    {% endblock %}

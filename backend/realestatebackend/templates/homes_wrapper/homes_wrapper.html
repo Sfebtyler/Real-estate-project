@@ -1,0 +1,30 @@
+<div class="maindiv__homepage">
+    <div class="home__premium_homes">
+        <form class="home__houselisting" action="/homes/?q=premium_homes" method="get">
+            <div ng-click="MnCtrl.detailhouseid=home.id; MnCtrl.opendetailspage=true;">
+                <div class="home__imageholder">
+                    <img class="home__houseimage" src={{Home.image}}/>
+                    <img class="home__redline" ng-src="/static/redline.png" ng-if=home.sold/>
+                </div>
+                <div class="home__housetitle">{{home.title}}</div>
+                <div class="home__housestreet">{{home.street}}</div>
+                <div class="home__housecity">{{home.city}}, {{home.state}}</div>
+                <div class="home__housedescription">{{home.description}}</div>
+                <div class="home__houseprice" ng-show=!{{home.sold}}>${{home.price}}</div>
+                <div class="home__housesold" ng-show={{home.sold}}>Sold</div>
+            </div>
+            <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && !home.is_favorite"
+               ng-click="MnCtrl.favorite(home.id, MnCtrl.current_user.id); home.is_favorite=true">
+                favorite_border
+            </i>
+            <i class="favorite_unfavoriteicons" ng-if="MnCtrl.current_user && home.is_favorite"
+               ng-click="MnCtrl.deleteFromFavorites(home.id, MnCtrl.current_user.id); home.is_favorite=false">
+                favorite
+            </i>
+        </form>
+    </div>
+
+    <div class="home__nohomemessagediv" ng-if="!MnCtrl.premiumhomeslist">
+        <p class="home__nohomemessage">No Premium Homes</p>
+    </div>
+</div>

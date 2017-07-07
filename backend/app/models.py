@@ -20,6 +20,7 @@ class UserModel(AbstractBaseUser, PermissionsMixin):
     date_joined = models.DateTimeField(_('date joined'), default=timezone.now)
     is_active = models.BooleanField(default=True)
     temp_token = models.CharField(default='', max_length=100)
+    favorites = models.ManyToManyField('Home', through='Favorites', related_name='favorite_of')
 
     REQUIRED_FIELDS = ['email']
     USERNAME_FIELD = 'username'
@@ -74,9 +75,15 @@ class Home(models.Model):
     def mls_number(self):
         return ", ".join([n.number for n in self.mlsnumber_set.all()])
 
+    def is_favorite(self):
+        if Favorites.objects.get(list=self.pk):
+            return True
+        else:
+            return False
+
 
 class Favorites(models.Model):
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='favorites_through')
     list = models.ForeignKey(Home, on_delete=models.CASCADE)
 
     class Meta:

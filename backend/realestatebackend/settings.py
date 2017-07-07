@@ -54,7 +54,7 @@ REST_FRAMEWORK = {
         'rest_framework.authentication.SessionAuthentication',
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'PAGE_SIZE': 5
+    'PAGE_SIZE': 3
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -77,7 +77,7 @@ MEDIA_URL = '/images/'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': ['realestatebackend/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -142,4 +142,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
+STATIC_ROOT = 'static/'
+
 STATIC_URL = '/static/'
+
+STATICFILES_DIRS = ('static/site/',)
+
+

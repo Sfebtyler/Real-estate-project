@@ -1,0 +1,44 @@
+<div class="maindiv">
+
+    <div class="home__other_homes">
+        {% for home in results %}
+        <div class="home__houselisting">
+            <a href="homes/{{home.id}}"></a>
+            <div>
+                <div class="home__imageholder">
+                    <img class="home__houseimage" ng-src={{home.image}}>
+                    <img class="home__redline" ng-src="redline.png" ng-if=home.sold>
+                </div>
+                <div class="home__housetitle">{{home.title}}</div>
+                <div class="home__housestreet">{{home.street}}</div>
+                <div class="home__housecity">{{home.city}}, {{home.state}}</div>
+                <div class="home__housedescription">{{home.description}}</div>
+                <div class="home__houseprice" ng-if='!home.sold'>${{home.price}}</div>
+                <div class="home__housesold" ng-if='home.sold'>Sold</div>
+            </div>
+            <form action="{% url 'favorites' %}" method="post">
+                {% csrf_token %}
+                <input type="hidden" id="homepk" name="homepk" value={{home.pk}}>
+                {% if not home.is_favorite and user.is_authenticated %}
+                <button id="favorite">
+                    <i class="favorite_unfavoriteicons">
+                        favorite_border
+                    </i>
+                </button>
+                {% endif %}
+                {% if home.is_favorite and user.is_authenticated %}
+                <button id="unfavorite" type="submit" value="submit">
+                    <i class="favorite_unfavoriteicons">
+                        favorite
+                    </i>
+                </button>
+                {% endif %}
+            </form>
+        </div>
+        {% endfor %}
+    </div>
+
+    <div class="home__nohomemessagediv" ng-if="MnCtrl.nohomesinsearch">
+        <p class="home__nohomemessage">Search returned no results</p>
+    </div>
+</div>
